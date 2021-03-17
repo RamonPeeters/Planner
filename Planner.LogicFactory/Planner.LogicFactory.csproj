@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Planner.DalFactory\Planner.DalFactory.csproj" />
+    <ProjectReference Include="..\Planner.LogicInterfaces\Planner.LogicInterfaces.csproj" />
+    <ProjectReference Include="..\Planner.Logic\Planner.Logic.csproj" />
+  </ItemGroup>
+
+</Project>
