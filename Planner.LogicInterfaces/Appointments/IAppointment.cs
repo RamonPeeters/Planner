@@ -9,7 +9,7 @@ namespace Planner.LogicInterfaces.Appointments {
         DateTime EndDate { get; set; }
         bool Finished { get; set; }
 
-        bool Update();
-        bool Delete();
+        bool UpdateAppointment();
+        bool DeleteAppointment();
     }
 }

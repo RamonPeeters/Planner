@@ -23,11 +23,11 @@ namespace Planner.Logic {
             throw new NotImplementedException();
         }
 
-        public bool Update() {
+        public bool UpdateAppointment() {
             throw new NotImplementedException();
         }
 
-        public bool Delete() {
+        public bool DeleteAppointment() {
             throw new NotImplementedException();
         }
     }
