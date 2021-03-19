@@ -1,4 +1,5 @@
-﻿using Planner.LogicInterfaces.Appointments;
+﻿using Planner.LogicInterfaces;
+using Planner.LogicInterfaces.Appointments;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +12,7 @@ namespace Planner.Logic {
         public DateTime EndDate { get; set; }
         public bool Finished { get; set; }
 
-        public List<IAppointment> GetAppointments(DateTime from, DateTime until) {
+        public List<IAppointment> GetAppointments(DateTime date, DateType dateType) {
             throw new NotImplementedException();
         }
 
