@@ -1,4 +1,4 @@
-﻿namespace Planner.LogicInterfaces {
+﻿namespace Planner.Logic {
     public enum DateType {
         Day = 0,
         Week = 1,
