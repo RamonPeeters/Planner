@@ -17,5 +17,7 @@ namespace Planner.Logic.Appointments {
         public bool Remove(Appointment appointment) {
             return Appointments.Remove(appointment);
         }
+
+        public int Count { get { return Appointments.Count; } }
     }
 }
