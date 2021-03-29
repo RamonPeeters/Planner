@@ -10,12 +10,12 @@ namespace Planner.Logic.Priorities {
 
         public Priority this[int index] { get { return Priorities[index]; } set { Priorities[index] = value; } }
 
-        public void Add(Priority appointment) {
-            Priorities.Add(appointment);
+        public void Add(Priority priority) {
+            Priorities.Add(priority);
         }
 
-        public bool Remove(Priority appointment) {
-            return Priorities.Remove(appointment);
+        public bool Remove(Priority priority) {
+            return Priorities.Remove(priority);
         }
 
         public int Count { get { return Priorities.Count; } }
