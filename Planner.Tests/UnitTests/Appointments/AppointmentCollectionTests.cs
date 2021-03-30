@@ -9,7 +9,7 @@ namespace Planner.Tests.UnitTests.Appointments {
         public void AppointmentCollection_AddsAppointmentCorrectly() {
             // Arrange
             AppointmentCollection appointmentCollection = new AppointmentCollection();
-            Appointment appointment = new Appointment() { Title = "foo" };
+            Appointment appointment = new Appointment("foo", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2));
 
             // Act
             appointmentCollection.Add(appointment);
@@ -22,7 +22,7 @@ namespace Planner.Tests.UnitTests.Appointments {
         public void AppointmentCollection_RemovesAppointmentCorrectly() {
             // Arrange
             AppointmentCollection appointmentCollection = new AppointmentCollection();
-            Appointment appointment = new Appointment() { Title = "foo" };
+            Appointment appointment = new Appointment("foo", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2));
             appointmentCollection.Add(appointment);
 
             // Act
@@ -36,7 +36,7 @@ namespace Planner.Tests.UnitTests.Appointments {
         public void AppointmentCollection_RemovesAppointmentIncorrectly_BecauseItemIsNotInCollection() {
             // Arrange
             AppointmentCollection appointmentCollection = new AppointmentCollection();
-            Appointment appointment = new Appointment() { Title = "foo" };
+            Appointment appointment = new Appointment("foo", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2));
 
             // Act
             bool successful = appointmentCollection.Remove(appointment);
@@ -49,8 +49,8 @@ namespace Planner.Tests.UnitTests.Appointments {
         public void AppointmentCollection_GetsAppointmentByIndexCorrectly() {
             // Arrange
             AppointmentCollection appointmentCollection = new AppointmentCollection();
-            appointmentCollection.Add(new Appointment() { Title = "foo" });
-            appointmentCollection.Add(new Appointment() { Title = "bar" });
+            appointmentCollection.Add(new Appointment("foo", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2)));
+            appointmentCollection.Add(new Appointment("bar", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2)));
 
             // Act
             Appointment appointment = appointmentCollection[0];
@@ -72,11 +72,11 @@ namespace Planner.Tests.UnitTests.Appointments {
         public void AppointmentCollection_SetsAppointmentByIndexCorrectly() {
             // Arrange
             AppointmentCollection appointmentCollection = new AppointmentCollection();
-            appointmentCollection.Add(new Appointment() { Title = "foo" });
-            appointmentCollection.Add(new Appointment() { Title = "bar" });
+            appointmentCollection.Add(new Appointment("foo", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2)));
+            appointmentCollection.Add(new Appointment("bar", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2)));
 
             // Act
-            appointmentCollection[0] = new Appointment() { Title = "baz" };
+            appointmentCollection[0] = new Appointment("baz", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2));
 
             // Assert
             Assert.AreEqual("baz", appointmentCollection[0].Title);
@@ -88,7 +88,7 @@ namespace Planner.Tests.UnitTests.Appointments {
             AppointmentCollection appointmentCollection = new AppointmentCollection();
 
             // Act, Assert
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => appointmentCollection[-1] = new Appointment() { Title = "foo" });
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => appointmentCollection[-1] = new Appointment("foo", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2)));
         }
     }
 }

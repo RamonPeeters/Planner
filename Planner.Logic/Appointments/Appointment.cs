@@ -2,10 +2,20 @@
 
 namespace Planner.Logic.Appointments {
     public class Appointment {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public string Title { get; }
+        public string Description { get; }
+        public DateTime StartDate { get; }
+        public DateTime EndDate { get; }
         public bool Finished { get; set; }
+
+        public Appointment(string title, DateTime startDate, DateTime endDate) : this(title, null, startDate, endDate) { }
+
+        public Appointment(string title, string description, DateTime startDate, DateTime endDate) {
+            Title = title;
+            Description = description;
+            StartDate = startDate;
+            EndDate = endDate;
+            Finished = false;
+        }
     }
 }
