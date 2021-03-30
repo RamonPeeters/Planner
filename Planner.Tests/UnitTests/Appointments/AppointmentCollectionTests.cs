@@ -5,14 +5,17 @@ using System;
 namespace Planner.Tests.UnitTests.Appointments {
     [TestClass]
     public class AppointmentCollectionTests {
+        private readonly Appointment FooAppointment = new Appointment("foo", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2));
+        private readonly Appointment BarAppointment = new Appointment("bar", new DateTime(2000, 1, 10), new DateTime(2000, 1, 11));
+        private readonly Appointment BazAppointment = new Appointment("baz", new DateTime(2000, 2, 1), new DateTime(2000, 2, 2));
+
         [TestMethod]
         public void AppointmentCollection_AddsAppointmentCorrectly() {
             // Arrange
             AppointmentCollection appointmentCollection = new AppointmentCollection();
-            Appointment appointment = new Appointment("foo", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2));
 
             // Act
-            appointmentCollection.Add(appointment);
+            appointmentCollection.Add(FooAppointment);
 
             // Assert
             Assert.AreEqual(1, appointmentCollection.Count);
@@ -22,11 +25,10 @@ namespace Planner.Tests.UnitTests.Appointments {
         public void AppointmentCollection_RemovesAppointmentCorrectly() {
             // Arrange
             AppointmentCollection appointmentCollection = new AppointmentCollection();
-            Appointment appointment = new Appointment("foo", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2));
-            appointmentCollection.Add(appointment);
+            appointmentCollection.Add(FooAppointment);
 
             // Act
-            bool successful = appointmentCollection.Remove(appointment);
+            bool successful = appointmentCollection.Remove(FooAppointment);
 
             // Assert
             Assert.IsTrue(successful);
@@ -36,10 +38,9 @@ namespace Planner.Tests.UnitTests.Appointments {
         public void AppointmentCollection_RemovesAppointmentIncorrectly_BecauseItemIsNotInCollection() {
             // Arrange
             AppointmentCollection appointmentCollection = new AppointmentCollection();
-            Appointment appointment = new Appointment("foo", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2));
 
             // Act
-            bool successful = appointmentCollection.Remove(appointment);
+            bool successful = appointmentCollection.Remove(FooAppointment);
 
             // Assert
             Assert.IsFalse(successful);
@@ -49,8 +50,8 @@ namespace Planner.Tests.UnitTests.Appointments {
         public void AppointmentCollection_GetsAppointmentByIndexCorrectly() {
             // Arrange
             AppointmentCollection appointmentCollection = new AppointmentCollection();
-            appointmentCollection.Add(new Appointment("foo", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2)));
-            appointmentCollection.Add(new Appointment("bar", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2)));
+            appointmentCollection.Add(FooAppointment);
+            appointmentCollection.Add(BarAppointment);
 
             // Act
             Appointment appointment = appointmentCollection[0];
@@ -72,11 +73,11 @@ namespace Planner.Tests.UnitTests.Appointments {
         public void AppointmentCollection_SetsAppointmentByIndexCorrectly() {
             // Arrange
             AppointmentCollection appointmentCollection = new AppointmentCollection();
-            appointmentCollection.Add(new Appointment("foo", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2)));
-            appointmentCollection.Add(new Appointment("bar", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2)));
+            appointmentCollection.Add(FooAppointment);
+            appointmentCollection.Add(BarAppointment);
 
             // Act
-            appointmentCollection[0] = new Appointment("baz", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2));
+            appointmentCollection[0] = BazAppointment;
 
             // Assert
             Assert.AreEqual("baz", appointmentCollection[0].Title);
@@ -88,7 +89,7 @@ namespace Planner.Tests.UnitTests.Appointments {
             AppointmentCollection appointmentCollection = new AppointmentCollection();
 
             // Act, Assert
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => appointmentCollection[-1] = new Appointment("foo", new DateTime(2000, 1, 1), new DateTime(2000, 1, 2)));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => appointmentCollection[-1] = FooAppointment);
         }
     }
 }
