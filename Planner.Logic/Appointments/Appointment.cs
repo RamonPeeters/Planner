@@ -6,7 +6,7 @@ namespace Planner.Logic.Appointments {
         public string Description { get; }
         public DateTime StartDate { get; }
         public DateTime EndDate { get; }
-        public bool Finished { get; set; }
+        public bool Finished { get; private set; }
 
         public Appointment(string title, DateTime startDate, DateTime endDate) : this(title, null, startDate, endDate) { }
 
@@ -16,6 +16,10 @@ namespace Planner.Logic.Appointments {
             StartDate = startDate;
             EndDate = endDate;
             Finished = false;
+        }
+
+        public void FinishAppointment() {
+            Finished = true;
         }
     }
 }
