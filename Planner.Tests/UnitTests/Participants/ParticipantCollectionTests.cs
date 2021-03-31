@@ -5,14 +5,17 @@ using System;
 namespace Planner.Tests.UnitTests.Participants {
     [TestClass]
     public class ParticipantCollectionTests {
+        private readonly Participant FooParticipant = new Participant("Foo", "Test", "foo@ema.il");
+        private readonly Participant BarParticipant = new Participant("Bar", "Test", "bar@ema.il");
+        private readonly Participant BazParticipant = new Participant("Baz", "Test", "baz@ema.il");
+
         [TestMethod]
         public void ParticipantCollection_AddsParticipantCorrectly() {
             // Arrange
             ParticipantCollection participantCollection = new ParticipantCollection();
-            Participant participant = new Participant() { Email = "foo@a.b" };
 
             // Act
-            participantCollection.Add(participant);
+            participantCollection.Add(FooParticipant);
 
             // Assert
             Assert.AreEqual(1, participantCollection.Count);
@@ -22,11 +25,10 @@ namespace Planner.Tests.UnitTests.Participants {
         public void ParticipantCollection_RemovesParticipantCorrectly() {
             // Arrange
             ParticipantCollection participantCollection = new ParticipantCollection();
-            Participant participant = new Participant() { Email = "foo@a.b" };
-            participantCollection.Add(participant);
+            participantCollection.Add(FooParticipant);
 
             // Act
-            bool successful = participantCollection.Remove(participant);
+            bool successful = participantCollection.Remove(FooParticipant);
 
             // Assert
             Assert.IsTrue(successful);
@@ -36,10 +38,9 @@ namespace Planner.Tests.UnitTests.Participants {
         public void ParticipantCollection_RemovesParticipantIncorrectly_BecauseItemIsNotInCollection() {
             // Arrange
             ParticipantCollection participantCollection = new ParticipantCollection();
-            Participant participant = new Participant() { Email = "foo@a.b" };
 
             // Act
-            bool successful = participantCollection.Remove(participant);
+            bool successful = participantCollection.Remove(FooParticipant);
 
             // Assert
             Assert.IsFalse(successful);
@@ -49,14 +50,14 @@ namespace Planner.Tests.UnitTests.Participants {
         public void ParticipantCollection_GetsParticipantByIndexCorrectly() {
             // Arrange
             ParticipantCollection participantCollection = new ParticipantCollection();
-            participantCollection.Add(new Participant() { Email = "foo@a.b" });
-            participantCollection.Add(new Participant() { Email = "bar@a.b" });
+            participantCollection.Add(FooParticipant);
+            participantCollection.Add(BarParticipant);
 
             // Act
             Participant participant = participantCollection[0];
 
             // Assert
-            Assert.AreEqual("foo@a.b", participant.Email);
+            Assert.AreEqual("foo@ema.il", participant.Email);
         }
 
         [TestMethod]
@@ -72,14 +73,14 @@ namespace Planner.Tests.UnitTests.Participants {
         public void ParticipantCollection_SetsParticipantByIndexCorrectly() {
             // Arrange
             ParticipantCollection participantCollection = new ParticipantCollection();
-            participantCollection.Add(new Participant() { Email = "foo@a.b" });
-            participantCollection.Add(new Participant() { Email = "bar@a.b" });
+            participantCollection.Add(FooParticipant);
+            participantCollection.Add(BarParticipant);
 
             // Act
-            participantCollection[0] = new Participant() { Email = "baz@a.b" };
+            participantCollection[0] = BazParticipant;
 
             // Assert
-            Assert.AreEqual("baz@a.b", participantCollection[0].Email);
+            Assert.AreEqual("baz@ema.il", participantCollection[0].Email);
         }
 
         [TestMethod]
@@ -88,7 +89,7 @@ namespace Planner.Tests.UnitTests.Participants {
             ParticipantCollection participantCollection = new ParticipantCollection();
 
             // Act, Assert
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => participantCollection[-1] = new Participant() { Email = "foo@a.b" });
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => participantCollection[-1] = FooParticipant);
         }
     }
 }
