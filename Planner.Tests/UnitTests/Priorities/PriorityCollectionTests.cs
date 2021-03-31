@@ -1,18 +1,22 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Planner.Logic.Priorities;
 using System;
+using System.Drawing;
 
 namespace Planner.Tests.UnitTests.Priorities {
     [TestClass]
     public class PriorityCollectionTests {
+        private readonly Priority FooPriority = new Priority("foo", Color.FromArgb(0x00FF0000));
+        private readonly Priority BarPriority = new Priority("bar", Color.FromArgb(0x0000FF00));
+        private readonly Priority BazPriority = new Priority("baz", Color.FromArgb(0x000000FF));
+
         [TestMethod]
         public void PriorityCollection_AddsPriorityCorrectly() {
             // Arrange
             PriorityCollection priorityCollection = new PriorityCollection();
-            Priority priority = new Priority() { Name = "foo" };
 
             // Act
-            priorityCollection.Add(priority);
+            priorityCollection.Add(FooPriority);
 
             // Assert
             Assert.AreEqual(1, priorityCollection.Count);
@@ -22,11 +26,10 @@ namespace Planner.Tests.UnitTests.Priorities {
         public void PriorityCollection_RemovesPriorityCorrectly() {
             // Arrange
             PriorityCollection priorityCollection = new PriorityCollection();
-            Priority priority = new Priority() { Name = "foo" };
-            priorityCollection.Add(priority);
+            priorityCollection.Add(FooPriority);
 
             // Act
-            bool successful = priorityCollection.Remove(priority);
+            bool successful = priorityCollection.Remove(FooPriority);
 
             // Assert
             Assert.IsTrue(successful);
@@ -36,10 +39,9 @@ namespace Planner.Tests.UnitTests.Priorities {
         public void PriorityCollection_RemovesPriorityIncorrectly_BecauseItemIsNotInCollection() {
             // Arrange
             PriorityCollection priorityCollection = new PriorityCollection();
-            Priority priority = new Priority() { Name = "foo" };
 
             // Act
-            bool successful = priorityCollection.Remove(priority);
+            bool successful = priorityCollection.Remove(FooPriority);
 
             // Assert
             Assert.IsFalse(successful);
@@ -49,8 +51,8 @@ namespace Planner.Tests.UnitTests.Priorities {
         public void PriorityCollection_GetsPriorityByIndexCorrectly() {
             // Arrange
             PriorityCollection priorityCollection = new PriorityCollection();
-            priorityCollection.Add(new Priority() { Name = "foo" });
-            priorityCollection.Add(new Priority() { Name = "bar" });
+            priorityCollection.Add(FooPriority);
+            priorityCollection.Add(BarPriority);
 
             // Act
             Priority priority = priorityCollection[0];
@@ -72,11 +74,11 @@ namespace Planner.Tests.UnitTests.Priorities {
         public void PriorityCollection_SetsPriorityByIndexCorrectly() {
             // Arrange
             PriorityCollection priorityCollection = new PriorityCollection();
-            priorityCollection.Add(new Priority() { Name = "foo" });
-            priorityCollection.Add(new Priority() { Name = "bar" });
+            priorityCollection.Add(FooPriority);
+            priorityCollection.Add(BarPriority);
 
             // Act
-            priorityCollection[0] = new Priority() { Name = "baz" };
+            priorityCollection[0] = BazPriority;
 
             // Assert
             Assert.AreEqual("baz", priorityCollection[0].Name);
@@ -88,7 +90,7 @@ namespace Planner.Tests.UnitTests.Priorities {
             PriorityCollection priorityCollection = new PriorityCollection();
 
             // Act, Assert
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => priorityCollection[-1] = new Priority() { Name = "foo" });
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => priorityCollection[-1] = FooPriority);
         }
     }
 }
