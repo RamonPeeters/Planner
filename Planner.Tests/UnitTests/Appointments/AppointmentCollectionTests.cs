@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Planner.Logic.Appointments;
+using Planner.Tests.TestDal.Appointments;
 using System;
 
 namespace Planner.Tests.UnitTests.Appointments {
@@ -12,7 +13,7 @@ namespace Planner.Tests.UnitTests.Appointments {
         [TestMethod]
         public void AppointmentCollection_AddsAppointmentCorrectly() {
             // Arrange
-            AppointmentCollection appointmentCollection = new AppointmentCollection();
+            AppointmentCollection appointmentCollection = new AppointmentCollection(new AppointmentTestDao());
 
             // Act
             appointmentCollection.Add(FooAppointment);
@@ -24,7 +25,7 @@ namespace Planner.Tests.UnitTests.Appointments {
         [TestMethod]
         public void AppointmentCollection_RemovesAppointmentCorrectly() {
             // Arrange
-            AppointmentCollection appointmentCollection = new AppointmentCollection();
+            AppointmentCollection appointmentCollection = new AppointmentCollection(new AppointmentTestDao());
             appointmentCollection.Add(FooAppointment);
 
             // Act
@@ -37,7 +38,7 @@ namespace Planner.Tests.UnitTests.Appointments {
         [TestMethod]
         public void AppointmentCollection_RemovesAppointmentIncorrectly_BecauseItemIsNotInCollection() {
             // Arrange
-            AppointmentCollection appointmentCollection = new AppointmentCollection();
+            AppointmentCollection appointmentCollection = new AppointmentCollection(new AppointmentTestDao());
 
             // Act
             bool successful = appointmentCollection.Remove(FooAppointment);
@@ -49,7 +50,7 @@ namespace Planner.Tests.UnitTests.Appointments {
         [TestMethod]
         public void AppointmentCollection_GetsAppointmentByIndexCorrectly() {
             // Arrange
-            AppointmentCollection appointmentCollection = new AppointmentCollection();
+            AppointmentCollection appointmentCollection = new AppointmentCollection(new AppointmentTestDao());
             appointmentCollection.Add(FooAppointment);
             appointmentCollection.Add(BarAppointment);
 
@@ -63,7 +64,7 @@ namespace Planner.Tests.UnitTests.Appointments {
         [TestMethod]
         public void AppointmentCollection_GetThrowsException_BecauseIndexIsOutOfRange() {
             // Arrange
-            AppointmentCollection appointmentCollection = new AppointmentCollection();
+            AppointmentCollection appointmentCollection = new AppointmentCollection(new AppointmentTestDao());
 
             // Act, Assert
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => appointmentCollection[-1]);
@@ -72,7 +73,7 @@ namespace Planner.Tests.UnitTests.Appointments {
         [TestMethod]
         public void AppointmentCollection_SetsAppointmentByIndexCorrectly() {
             // Arrange
-            AppointmentCollection appointmentCollection = new AppointmentCollection();
+            AppointmentCollection appointmentCollection = new AppointmentCollection(new AppointmentTestDao());
             appointmentCollection.Add(FooAppointment);
             appointmentCollection.Add(BarAppointment);
 
@@ -86,7 +87,7 @@ namespace Planner.Tests.UnitTests.Appointments {
         [TestMethod]
         public void AppointmentCollection_SetThrowsException_BecauseIndexIsOutOfRange() {
             // Arrange
-            AppointmentCollection appointmentCollection = new AppointmentCollection();
+            AppointmentCollection appointmentCollection = new AppointmentCollection(new AppointmentTestDao());
 
             // Act, Assert
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => appointmentCollection[-1] = FooAppointment);
