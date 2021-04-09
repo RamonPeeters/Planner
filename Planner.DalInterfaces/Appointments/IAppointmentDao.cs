@@ -2,9 +2,9 @@
 
 namespace Planner.DalInterfaces.Appointments {
     public interface IAppointmentDao {
-        public List<IAppointmentDto> GetAppointments();
-        public int CreateAppointment(IAppointmentDto appointmentDto);
-        public int UpdateAppointment(IAppointmentDto appointmentDto);
-        public int DeleteAppointment(IAppointmentDto appointmentDto);
+        public List<AppointmentDto> GetAppointments();
+        public int CreateAppointment(AppointmentDto appointmentDto);
+        public int UpdateAppointment(AppointmentDto appointmentDto);
+        public int DeleteAppointment(AppointmentDto appointmentDto);
     }
 }

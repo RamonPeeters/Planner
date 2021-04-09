@@ -13,25 +13,25 @@ namespace Planner.Dal.Appointments {
             ConnectionString = connectionString;
         }
 
-        public List<IAppointmentDto> GetAppointments() {
+        public List<AppointmentDto> GetAppointments() {
             using IDbConnection connection = new MySqlConnection(ConnectionString);
             string sql = "select * from appointments;";
-            return connection.Query<AppointmentDto>(sql).ToList<IAppointmentDto>();
+            return connection.Query<AppointmentDto>(sql).ToList<AppointmentDto>();
         }
 
-        public int CreateAppointment(IAppointmentDto appointmentDto) {
+        public int CreateAppointment(AppointmentDto appointmentDto) {
             using IDbConnection connection = new MySqlConnection(ConnectionString);
             string sql = "insert into appointments(`Title`, `StartDate`, `EndDate`, `Description`) values (@Title, @StartDate, @EndDate, @Description);";
             return connection.Execute(sql, new { appointmentDto.Title, appointmentDto.StartDate, appointmentDto.EndDate, appointmentDto.Description });
         }
 
-        public int UpdateAppointment(IAppointmentDto appointmentDto) {
+        public int UpdateAppointment(AppointmentDto appointmentDto) {
             using IDbConnection connection = new MySqlConnection(ConnectionString);
             string sql = "update appointments set `Title` = @Title, `StartDate` = @StartDate, `EndDate` = @EndDate, `Description` = @Description, `Finished` = @Finished where `AppointmentId` = @Id;";
             return connection.Execute(sql, new { appointmentDto.Title, appointmentDto.StartDate, appointmentDto.EndDate, appointmentDto.Description, appointmentDto.Finished, appointmentDto.Id });
         }
 
-        public int DeleteAppointment(IAppointmentDto appointmentDto) {
+        public int DeleteAppointment(AppointmentDto appointmentDto) {
             using IDbConnection connection = new MySqlConnection(ConnectionString);
             string sql = "delete from appointments where `AppointmentId` = @Id;";
             return connection.Execute(sql, new { appointmentDto.Id });

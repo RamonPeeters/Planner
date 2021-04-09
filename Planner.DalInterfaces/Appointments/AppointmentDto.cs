@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Planner.DalInterfaces.Appointments {
-    public interface IAppointmentDto {
+    public class AppointmentDto {
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
