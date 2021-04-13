@@ -1,5 +1,7 @@
 ﻿using Planner.DalInterfaces.Appointments;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Planner.Logic.Appointments {
     public class AppointmentCollection {
@@ -13,14 +15,28 @@ namespace Planner.Logic.Appointments {
             Appointments = new List<Appointment>(AppointmentMapper.ToAppointments(appointmentDtos));
         }
 
-        public Appointment this[int index] { get { return Appointments[index]; } set { Appointments[index] = value; } }
-
-        public void Add(Appointment appointment) {
-            Appointments.Add(appointment);
+        public Appointment this[int id] {
+            get {
+                // Short but less readable, use if statement instead?
+                return Appointments.FirstOrDefault(a => a.Id == id) ?? throw new ArgumentOutOfRangeException(nameof(id));
+            }
+            set {
+                int index = Appointments.FindIndex(a => a.Id == id);
+                if (index == -1) throw new ArgumentOutOfRangeException(nameof(id));
+                AppointmentDao.UpdateAppointment(id, AppointmentMapper.ToAppointmentDto(value));
+                Appointments[index] = new Appointment(id, value.Title, value.Description, value.StartDate, value.EndDate, value.Finished);
+            }
         }
 
-        public bool Remove(Appointment appointment) {
-            return Appointments.Remove(appointment);
+        public void Add(Appointment appointment) {
+            int id = AppointmentDao.CreateAppointment(AppointmentMapper.ToAppointmentDto(appointment));
+            Appointments.Add(new Appointment(id, appointment.Title, appointment.Description, appointment.StartDate, appointment.EndDate, appointment.Finished));
+        }
+
+        public bool RemoveById(int id) {
+            int rows = AppointmentDao.DeleteAppointment(id);
+            if (rows > 0) return Appointments.RemoveAll(a => a.Id == id) > 0;
+            return false;
         }
 
         public int Count { get { return Appointments.Count; } }

@@ -29,7 +29,7 @@ namespace Planner.Tests.UnitTests.Appointments {
             appointmentCollection.Add(FooAppointment);
 
             // Act
-            bool successful = appointmentCollection.Remove(FooAppointment);
+            bool successful = appointmentCollection.RemoveById(1);
 
             // Assert
             Assert.IsTrue(successful);
@@ -41,28 +41,28 @@ namespace Planner.Tests.UnitTests.Appointments {
             AppointmentCollection appointmentCollection = new AppointmentCollection(new AppointmentTestDao());
 
             // Act
-            bool successful = appointmentCollection.Remove(FooAppointment);
+            bool successful = appointmentCollection.RemoveById(-1);
 
             // Assert
             Assert.IsFalse(successful);
         }
 
         [TestMethod]
-        public void AppointmentCollection_GetsAppointmentByIndexCorrectly() {
+        public void AppointmentCollection_GetsAppointmentByIdCorrectly() {
             // Arrange
             AppointmentCollection appointmentCollection = new AppointmentCollection(new AppointmentTestDao());
             appointmentCollection.Add(FooAppointment);
             appointmentCollection.Add(BarAppointment);
 
             // Act
-            Appointment appointment = appointmentCollection[0];
+            Appointment appointment = appointmentCollection[1];
 
             // Assert
             Assert.AreEqual("foo", appointment.Title);
         }
 
         [TestMethod]
-        public void AppointmentCollection_GetThrowsException_BecauseIndexIsOutOfRange() {
+        public void AppointmentCollection_GetThrowsException_BecauseAppointmentWithIdDoesNotExist() {
             // Arrange
             AppointmentCollection appointmentCollection = new AppointmentCollection(new AppointmentTestDao());
 
@@ -71,21 +71,21 @@ namespace Planner.Tests.UnitTests.Appointments {
         }
 
         [TestMethod]
-        public void AppointmentCollection_SetsAppointmentByIndexCorrectly() {
+        public void AppointmentCollection_SetsAppointmentByIdCorrectly() {
             // Arrange
             AppointmentCollection appointmentCollection = new AppointmentCollection(new AppointmentTestDao());
             appointmentCollection.Add(FooAppointment);
             appointmentCollection.Add(BarAppointment);
 
             // Act
-            appointmentCollection[0] = BazAppointment;
+            appointmentCollection[1] = BazAppointment;
 
             // Assert
-            Assert.AreEqual("baz", appointmentCollection[0].Title);
+            Assert.AreEqual("baz", appointmentCollection[1].Title);
         }
 
         [TestMethod]
-        public void AppointmentCollection_SetThrowsException_BecauseIndexIsOutOfRange() {
+        public void AppointmentCollection_SetThrowsException_BecauseAppointmentWithIdDoesNotExist() {
             // Arrange
             AppointmentCollection appointmentCollection = new AppointmentCollection(new AppointmentTestDao());
 

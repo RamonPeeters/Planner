@@ -21,20 +21,21 @@ namespace Planner.Dal.Appointments {
 
         public int CreateAppointment(AppointmentDto appointmentDto) {
             using IDbConnection connection = new MySqlConnection(ConnectionString);
-            string sql = "insert into appointments(`Title`, `StartDate`, `EndDate`, `Description`) values (@Title, @StartDate, @EndDate, @Description);";
-            return connection.Execute(sql, new { appointmentDto.Title, appointmentDto.StartDate, appointmentDto.EndDate, appointmentDto.Description });
+            string sql = @"insert into appointments(`Title`, `StartDate`, `EndDate`, `Description`) values (@Title, @StartDate, @EndDate, @Description);
+                           select last_insert_id();";
+            return connection.Query<int>(sql, new { appointmentDto.Title, appointmentDto.StartDate, appointmentDto.EndDate, appointmentDto.Description }).Single();
         }
 
-        public int UpdateAppointment(AppointmentDto appointmentDto) {
+        public int UpdateAppointment(int id, AppointmentDto appointmentDto) {
             using IDbConnection connection = new MySqlConnection(ConnectionString);
-            string sql = "update appointments set `Title` = @Title, `StartDate` = @StartDate, `EndDate` = @EndDate, `Description` = @Description, `Finished` = @Finished where `AppointmentId` = @Id;";
-            return connection.Execute(sql, new { appointmentDto.Title, appointmentDto.StartDate, appointmentDto.EndDate, appointmentDto.Description, appointmentDto.Finished, appointmentDto.Id });
+            string sql = "update appointments set `Title` = @Title, `StartDate` = @StartDate, `EndDate` = @EndDate, `Description` = @Description, `Finished` = @Finished where `Id` = @Id;";
+            return connection.Execute(sql, new { appointmentDto.Title, appointmentDto.StartDate, appointmentDto.EndDate, appointmentDto.Description, appointmentDto.Finished, Id = id });
         }
 
-        public int DeleteAppointment(AppointmentDto appointmentDto) {
+        public int DeleteAppointment(int id) {
             using IDbConnection connection = new MySqlConnection(ConnectionString);
-            string sql = "delete from appointments where `AppointmentId` = @Id;";
-            return connection.Execute(sql, new { appointmentDto.Id });
+            string sql = "delete from appointments where `Id` = @Id;";
+            return connection.Execute(sql, new { Id = id });
         }
     }
 }

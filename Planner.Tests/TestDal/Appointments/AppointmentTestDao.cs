@@ -11,20 +11,20 @@ namespace Planner.Tests.TestDal.Appointments {
         }
 
         public int CreateAppointment(AppointmentDto appointmentDto) {
-            Appointments.Add(appointmentDto);
-            appointmentDto.Id = IdAutoIncrement++;
-            return 1;
+            AppointmentDto actualAppointmentDto = new AppointmentDto(IdAutoIncrement++, appointmentDto.Title, appointmentDto.Description, appointmentDto.StartDate, appointmentDto.EndDate, appointmentDto.Finished);
+            Appointments.Add(actualAppointmentDto);
+            return actualAppointmentDto.Id;
         }
 
-        public int UpdateAppointment(AppointmentDto appointmentDto) {
-            int index = Appointments.FindIndex(a => a.Id == appointmentDto.Id);
+        public int UpdateAppointment(int id, AppointmentDto appointmentDto) {
+            int index = Appointments.FindIndex(a => a.Id == id);
             if (index == -1) return 0;
             Appointments[index] = appointmentDto;
             return 1;
         }
 
-        public int DeleteAppointment(AppointmentDto appointmentDto) {
-            return Appointments.RemoveAll(a => a.Id == appointmentDto.Id);
+        public int DeleteAppointment(int id) {
+            return Appointments.RemoveAll(a => a.Id == id);
         }
     }
 }
