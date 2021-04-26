@@ -46,7 +46,7 @@ namespace Planner.Tests.IntegrationTests {
             appointmentCollection.Add(TestAppointment);
 
             // Assert
-            Assert.AreEqual(4, appointmentCollection[4].Id);
+            Assert.AreEqual("Test", appointmentCollection[4].Title);
         }
 
         [TestMethod]
