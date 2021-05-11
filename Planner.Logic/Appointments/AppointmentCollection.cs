@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 namespace Planner.Logic.Appointments {
     public class AppointmentCollection {
+        private const string AppointmentIdNotFound = "An appointment with id {0} was not found.";
+
         private readonly IAppointmentDao AppointmentDao;
         private readonly List<Appointment> Appointments;
 
@@ -18,13 +20,15 @@ namespace Planner.Logic.Appointments {
             get {
                 int index = Appointments.FindIndex(item => item.Id == id);
                 if (index == -1) {
-                    throw new ArgumentException($"An appointment with id {id} was not found.");
+                    throw new ArgumentException(string.Format(AppointmentIdNotFound, id));
                 }
                 return Appointments[index];
             }
             set {
                 int index = Appointments.FindIndex(a => a.Id == id);
-                if (index == -1) throw new ArgumentOutOfRangeException(nameof(id));
+                if (index == -1) {
+                    throw new ArgumentException(string.Format(AppointmentIdNotFound, id));
+                }
                 AppointmentDao.UpdateAppointment(id, AppointmentMapper.ToAppointmentDto(value));
                 Appointments[index] = new Appointment(id, value.Title, value.Description, value.StartDate, value.EndDate, value.Finished);
             }

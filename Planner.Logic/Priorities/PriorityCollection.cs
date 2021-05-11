@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace Planner.Logic.Priorities {
     public class PriorityCollection {
+        private const string PriorityNameNotFound = "A priority with the name '{0}' was not found.";
+        private const string PriorityNameAlreadyExists = "A priority with the name '{0}' already exists.";
+
         private readonly IPriorityDao PriorityDao;
         private readonly List<Priority> Priorities;
 
@@ -21,7 +24,7 @@ namespace Planner.Logic.Priorities {
                 }
                 int index = Priorities.FindIndex(item => item.Name == name);
                 if (index == -1) {
-                    throw new ArgumentException($"A priority with the name '{name}' was not found.");
+                    throw new ArgumentException(string.Format(PriorityNameNotFound, name));
                 }
                 return Priorities[index];
             }
@@ -34,10 +37,10 @@ namespace Planner.Logic.Priorities {
                 }
                 int index = Priorities.FindIndex(item => item.Name == name);
                 if (index == -1) {
-                    throw new ArgumentException($"A priority with the name '{name}' was not found.");
+                    throw new ArgumentException(string.Format(PriorityNameNotFound, name));
                 }
                 if (Priorities.Contains(value)) {
-                    throw new ArgumentException($"A priority with the name '{value.Name}' already exists.");
+                    throw new ArgumentException(string.Format(PriorityNameAlreadyExists, value.Name));
                 }
                 PriorityDao.UpdatePriority(name, PriorityMapper.ToPriorityDto(value));
                 Priorities.Add(value);
@@ -46,7 +49,7 @@ namespace Planner.Logic.Priorities {
 
         public void Add(Priority priority) {
             if (Priorities.Contains(priority)) {
-                throw new ArgumentException($"A priority with the name '{priority.Name}' already exists.");
+                throw new ArgumentException(string.Format(PriorityNameAlreadyExists, priority.Name));
             }
             PriorityDao.CreatePriority(PriorityMapper.ToPriorityDto(priority));
             Priorities.Add(priority);
