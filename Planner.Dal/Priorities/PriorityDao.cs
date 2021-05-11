@@ -27,13 +27,13 @@ namespace Planner.Dal.Priorities {
 
         public int UpdatePriority(string priorityName, PriorityDto priorityDto) {
             using IDbConnection connection = new MySqlConnection(ConnectionString);
-            string sql = "update appointments set `Name` = @Name, `Colour` = @Colour where `Name` = @OriginalName;";
+            string sql = "update priorities set `Name` = @Name, `Colour` = @Colour where `Name` = @OriginalName;";
             return connection.Execute(sql, new { priorityDto.Name, priorityDto.Colour, OriginalName = priorityName });
         }
 
         public int DeletePriority(string priorityName) {
             using IDbConnection connection = new MySqlConnection(ConnectionString);
-            string sql = "delete from appointments where `Name` = @Name;";
+            string sql = "delete from priorities where `Name` = @Name;";
             return connection.Execute(sql, new { Name = priorityName });
         }
     }

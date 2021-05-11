@@ -54,7 +54,7 @@ namespace Planner.Tests.UnitTests.Priorities {
             bool successful = priorityCollection.RemoveByName("foo");
 
             // Assert
-            Assert.IsTrue(successful);
+            Assert.IsFalse(successful);
         }
 
         [TestMethod]

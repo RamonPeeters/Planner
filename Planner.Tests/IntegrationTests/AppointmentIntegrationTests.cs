@@ -9,7 +9,6 @@ using System.Data;
 namespace Planner.Tests.IntegrationTests {
     [TestClass]
     public class AppointmentIntegrationTests {
-        private readonly string ConnectionString = "Server=localhost;Database=plannertestdb;Uid=root;Pwd=;";
         private readonly Appointment TestAppointment = new Appointment("Test", new DateTime(2021, 4, 1, 10, 0, 0), new DateTime(2021, 4, 1, 11, 0, 0));
 
         [TestInitialize]
@@ -21,14 +20,14 @@ namespace Planner.Tests.IntegrationTests {
                               ('Foo', '2021-4-1T12:00:00', '2021-4-1T13:00:00'),
                               ('Bar', '2021-4-1T12:30:00', '2021-4-1T14:00:00'),
                               ('Baz', '2021-4-1T13:00:00', '2021-4-1T14:00:00');";
-            using IDbConnection connection = new MySqlConnection(ConnectionString);
+            using IDbConnection connection = new MySqlConnection(DalTestHelper.ConnectionString);
             connection.Execute(sql);
         }
 
         [TestMethod]
         public void AppointmentCollection_GetAppointments() {
             // Arrange
-            AppointmentCollection appointmentCollection = AppointmentLogicFactory.GetAppointmentCollection(ConnectionString);
+            AppointmentCollection appointmentCollection = AppointmentLogicFactory.GetAppointmentCollection(DalTestHelper.ConnectionString);
 
             // Act
             Appointment appointment = appointmentCollection[1];
@@ -40,7 +39,7 @@ namespace Planner.Tests.IntegrationTests {
         [TestMethod]
         public void AppointmentCollection_AddAppointment() {
             // Arrange
-            AppointmentCollection appointmentCollection = AppointmentLogicFactory.GetAppointmentCollection(ConnectionString);
+            AppointmentCollection appointmentCollection = AppointmentLogicFactory.GetAppointmentCollection(DalTestHelper.ConnectionString);
 
             // Act
             appointmentCollection.Add(TestAppointment);
@@ -52,7 +51,7 @@ namespace Planner.Tests.IntegrationTests {
         [TestMethod]
         public void AppointmentCollection_DeleteAppointment() {
             // Arrange
-            AppointmentCollection appointmentCollection = AppointmentLogicFactory.GetAppointmentCollection(ConnectionString);
+            AppointmentCollection appointmentCollection = AppointmentLogicFactory.GetAppointmentCollection(DalTestHelper.ConnectionString);
 
             // Act
             bool successful = appointmentCollection.RemoveById(1);
@@ -64,7 +63,7 @@ namespace Planner.Tests.IntegrationTests {
         [TestMethod]
         public void AppointmentCollection_SetAppointment() {
             // Arrange
-            AppointmentCollection appointmentCollection = AppointmentLogicFactory.GetAppointmentCollection(ConnectionString);
+            AppointmentCollection appointmentCollection = AppointmentLogicFactory.GetAppointmentCollection(DalTestHelper.ConnectionString);
 
             // Act
             appointmentCollection[1] = TestAppointment;
