@@ -1,19 +1,19 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Planner.Logic.Priorities;
+using Planner.Tests.TestDal.Priorities;
 using System;
-using System.Drawing;
 
 namespace Planner.Tests.UnitTests.Priorities {
     [TestClass]
     public class PriorityCollectionTests {
-        private readonly Priority FooPriority = new Priority("foo", Color.FromArgb(0x00FF0000));
-        private readonly Priority BarPriority = new Priority("bar", Color.FromArgb(0x0000FF00));
-        private readonly Priority BazPriority = new Priority("baz", Color.FromArgb(0x000000FF));
+        private readonly Priority FooPriority = new Priority("foo", 1);
+        private readonly Priority BarPriority = new Priority("bar", 1);
+        private readonly Priority BazPriority = new Priority("baz", 2);
 
         [TestMethod]
         public void PriorityCollection_AddsPriorityCorrectly() {
             // Arrange
-            PriorityCollection priorityCollection = new PriorityCollection();
+            PriorityCollection priorityCollection = new PriorityCollection(new PriorityTestDao());
 
             // Act
             priorityCollection.Add(FooPriority);
@@ -23,74 +23,126 @@ namespace Planner.Tests.UnitTests.Priorities {
         }
 
         [TestMethod]
-        public void PriorityCollection_RemovesPriorityCorrectly() {
+        public void PriorityCollection_Add_ThrowsException_BecausePriorityWithNameAlreadyExists() {
             // Arrange
-            PriorityCollection priorityCollection = new PriorityCollection();
+            PriorityCollection priorityCollection = new PriorityCollection(new PriorityTestDao());
+            priorityCollection.Add(FooPriority);
+
+            // Act, Assert
+            Assert.ThrowsException<ArgumentException>(() => priorityCollection.Add(new Priority("foo", 2)));
+        }
+
+        [TestMethod]
+        public void PriorityCollection_RemovesPriorityByNameCorrectly() {
+            // Arrange
+            PriorityCollection priorityCollection = new PriorityCollection(new PriorityTestDao());
             priorityCollection.Add(FooPriority);
 
             // Act
-            bool successful = priorityCollection.Remove(FooPriority);
+            bool successful = priorityCollection.RemoveByName("foo");
 
             // Assert
             Assert.IsTrue(successful);
         }
 
         [TestMethod]
-        public void PriorityCollection_RemovesPriorityIncorrectly_BecauseItemIsNotInCollection() {
+        public void PriorityCollection_RemoveByName_ReturnsFalse_BecausePriorityWithNameDoesNotExist() {
             // Arrange
-            PriorityCollection priorityCollection = new PriorityCollection();
-
+            PriorityCollection priorityCollection = new PriorityCollection(new PriorityTestDao());
+            
             // Act
-            bool successful = priorityCollection.Remove(FooPriority);
+            bool successful = priorityCollection.RemoveByName("foo");
 
             // Assert
-            Assert.IsFalse(successful);
+            Assert.IsTrue(successful);
         }
 
         [TestMethod]
-        public void PriorityCollection_GetsPriorityByIndexCorrectly() {
+        public void PriorityCollection_GetsPriorityByNameCorrectly() {
             // Arrange
-            PriorityCollection priorityCollection = new PriorityCollection();
+            PriorityCollection priorityCollection = new PriorityCollection(new PriorityTestDao());
             priorityCollection.Add(FooPriority);
             priorityCollection.Add(BarPriority);
 
             // Act
-            Priority priority = priorityCollection[0];
+            Priority priority = priorityCollection["foo"];
 
             // Assert
             Assert.AreEqual("foo", priority.Name);
         }
 
         [TestMethod]
-        public void PriorityCollection_GetThrowsException_BecauseIndexIsOutOfRange() {
+        public void PriorityCollection_Get_ThrowsException_BecauseNameIsNull() {
             // Arrange
-            PriorityCollection priorityCollection = new PriorityCollection();
+            PriorityCollection priorityCollection = new PriorityCollection(new PriorityTestDao());
 
             // Act, Assert
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => priorityCollection[-1]);
+            Assert.ThrowsException<ArgumentNullException>(() => priorityCollection[null]);
         }
 
         [TestMethod]
-        public void PriorityCollection_SetsPriorityByIndexCorrectly() {
+        public void PriorityCollection_Get_ThrowsException_BecausePriorityWithNameDoesNotExist() {
             // Arrange
-            PriorityCollection priorityCollection = new PriorityCollection();
+            PriorityCollection priorityCollection = new PriorityCollection(new PriorityTestDao());
+
+            // Act, Assert
+            Assert.ThrowsException<ArgumentException>(() => priorityCollection["foo"]);
+        }
+
+        [TestMethod]
+        public void PriorityCollection_SetsPriorityByNameCorrectly() {
+            // Arrange
+            PriorityCollection priorityCollection = new PriorityCollection(new PriorityTestDao());
             priorityCollection.Add(FooPriority);
             priorityCollection.Add(BarPriority);
 
             // Act
-            priorityCollection[0] = BazPriority;
+            priorityCollection["foo"] = BazPriority;
 
             // Assert
-            Assert.AreEqual("baz", priorityCollection[0].Name);
+            Assert.AreEqual("baz", priorityCollection["baz"].Name);
         }
 
         [TestMethod]
-        public void PriorityCollection_SetThrowsException_BecauseIndexIsOutOfRange() {
+        public void PriorityCollection_Set_ThrowsException_BecauseNameIsNull() {
             // Arrange
-            PriorityCollection priorityCollection = new PriorityCollection();
+            PriorityCollection priorityCollection = new PriorityCollection(new PriorityTestDao());
+            priorityCollection.Add(FooPriority);
+            priorityCollection.Add(BarPriority);
 
             // Act, Assert
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => priorityCollection[-1] = FooPriority);
+            Assert.ThrowsException<ArgumentNullException>(() => priorityCollection[null] = BazPriority);
+        }
+
+        [TestMethod]
+        public void PriorityCollection_Set_ThrowsException_BecauseValueIsNull() {
+            // Arrange
+            PriorityCollection priorityCollection = new PriorityCollection(new PriorityTestDao());
+            priorityCollection.Add(FooPriority);
+            priorityCollection.Add(BarPriority);
+
+            // Act, Assert
+            Assert.ThrowsException<ArgumentNullException>(() => priorityCollection["foo"] = null);
+        }
+
+        [TestMethod]
+        public void PriorityCollection_Set_ThrowsException_BecausePriorityWithNameDoesNotExist() {
+            // Arrange
+            PriorityCollection priorityCollection = new PriorityCollection(new PriorityTestDao());
+            
+            // Act, Assert
+            Assert.ThrowsException<ArgumentException>(() => priorityCollection["foo"] = BazPriority);
+        }
+
+        [TestMethod]
+        public void PriorityCollection_Set_ThrowsException_BecausePriorityWithNameAlreadyExists() {
+            // Arrange
+            PriorityCollection priorityCollection = new PriorityCollection(new PriorityTestDao());
+            priorityCollection.Add(FooPriority);
+            priorityCollection.Add(BarPriority);
+
+            // Act, Assert
+            Assert.ThrowsException<ArgumentException>(() => priorityCollection["foo"] = BarPriority);
         }
     }
 }
