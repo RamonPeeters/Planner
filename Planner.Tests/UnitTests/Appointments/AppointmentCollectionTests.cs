@@ -67,7 +67,7 @@ namespace Planner.Tests.UnitTests.Appointments {
             AppointmentCollection appointmentCollection = new AppointmentCollection(new AppointmentTestDao());
 
             // Act, Assert
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => appointmentCollection[-1]);
+            Assert.ThrowsException<ArgumentException>(() => appointmentCollection[-1]);
         }
 
         [TestMethod]

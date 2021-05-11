@@ -1,7 +1,6 @@
 ﻿using Planner.DalInterfaces.Appointments;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Planner.Logic.Appointments {
     public class AppointmentCollection {
@@ -17,8 +16,11 @@ namespace Planner.Logic.Appointments {
 
         public Appointment this[int id] {
             get {
-                // Short but less readable, use if statement instead?
-                return Appointments.FirstOrDefault(a => a.Id == id) ?? throw new ArgumentOutOfRangeException(nameof(id));
+                int index = Appointments.FindIndex(item => item.Id == id);
+                if (index == -1) {
+                    throw new ArgumentException($"An appointment with id {id} was not found.");
+                }
+                return Appointments[index];
             }
             set {
                 int index = Appointments.FindIndex(a => a.Id == id);
