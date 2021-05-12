@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Planner.Logic.Participants;
+using Planner.Tests.TestDal.Participants;
 using System;
 
 namespace Planner.Tests.UnitTests.Participants {
@@ -12,7 +13,7 @@ namespace Planner.Tests.UnitTests.Participants {
         [TestMethod]
         public void ParticipantCollection_AddsParticipantCorrectly() {
             // Arrange
-            ParticipantCollection participantCollection = new ParticipantCollection();
+            ParticipantCollection participantCollection = new ParticipantCollection(new ParticipantTestDao());
 
             // Act
             participantCollection.Add(FooParticipant);
@@ -22,74 +23,126 @@ namespace Planner.Tests.UnitTests.Participants {
         }
 
         [TestMethod]
-        public void ParticipantCollection_RemovesParticipantCorrectly() {
+        public void ParticipantCollection_Add_ThrowsException_BecauseParticipantWithEmailAlreadyExists() {
             // Arrange
-            ParticipantCollection participantCollection = new ParticipantCollection();
+            ParticipantCollection participantCollection = new ParticipantCollection(new ParticipantTestDao());
+            participantCollection.Add(FooParticipant);
+
+            // Act, Assert
+            Assert.ThrowsException<ArgumentException>(() => participantCollection.Add(new Participant("Foo2", "Test2", "foo@ema.il")));
+        }
+
+        [TestMethod]
+        public void ParticipantCollection_RemovesParticipantByEmailCorrectly() {
+            // Arrange
+            ParticipantCollection participantCollection = new ParticipantCollection(new ParticipantTestDao());
             participantCollection.Add(FooParticipant);
 
             // Act
-            bool successful = participantCollection.Remove(FooParticipant);
+            bool successful = participantCollection.RemoveByEmail("foo@ema.il");
 
             // Assert
             Assert.IsTrue(successful);
         }
 
         [TestMethod]
-        public void ParticipantCollection_RemovesParticipantIncorrectly_BecauseItemIsNotInCollection() {
+        public void ParticipantCollection_RemoveByEmail_ReturnsFalse_BecauseParticipantWithEmailDoesNotExist() {
             // Arrange
-            ParticipantCollection participantCollection = new ParticipantCollection();
+            ParticipantCollection participantCollection = new ParticipantCollection(new ParticipantTestDao());
 
             // Act
-            bool successful = participantCollection.Remove(FooParticipant);
+            bool successful = participantCollection.RemoveByEmail("foo@ema.il");
 
             // Assert
             Assert.IsFalse(successful);
         }
 
         [TestMethod]
-        public void ParticipantCollection_GetsParticipantByIndexCorrectly() {
+        public void ParticipantCollection_GetsParticipantByEmailCorrectly() {
             // Arrange
-            ParticipantCollection participantCollection = new ParticipantCollection();
+            ParticipantCollection participantCollection = new ParticipantCollection(new ParticipantTestDao());
             participantCollection.Add(FooParticipant);
             participantCollection.Add(BarParticipant);
 
             // Act
-            Participant participant = participantCollection[0];
+            Participant participant = participantCollection["foo@ema.il"];
 
             // Assert
             Assert.AreEqual("foo@ema.il", participant.Email);
         }
 
         [TestMethod]
-        public void ParticipantCollection_GetThrowsException_BecauseIndexIsOutOfRange() {
+        public void ParticipantCollection_Get_ThrowsException_BecauseEmailIsNull() {
             // Arrange
-            ParticipantCollection participantCollection = new ParticipantCollection();
+            ParticipantCollection participantCollection = new ParticipantCollection(new ParticipantTestDao());
 
             // Act, Assert
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => participantCollection[-1]);
+            Assert.ThrowsException<ArgumentNullException>(() => participantCollection[null]);
         }
 
         [TestMethod]
-        public void ParticipantCollection_SetsParticipantByIndexCorrectly() {
+        public void ParticipantCollection_Get_ThrowsException_BecauseEmailDoesNotExist() {
             // Arrange
-            ParticipantCollection participantCollection = new ParticipantCollection();
-            participantCollection.Add(FooParticipant);
-            participantCollection.Add(BarParticipant);
+            ParticipantCollection participantCollection = new ParticipantCollection(new ParticipantTestDao());
+
+            // Act, Assert
+            Assert.ThrowsException<ArgumentException>(() => participantCollection["foo@ema.il"]);
+        }
+
+        [TestMethod]
+        public void ParticipantCollection_SetsParticipantByEmailCorrectly() {
+            // Arrange
+            ParticipantCollection ParticipantCollection = new ParticipantCollection(new ParticipantTestDao());
+            ParticipantCollection.Add(FooParticipant);
+            ParticipantCollection.Add(BarParticipant);
 
             // Act
-            participantCollection[0] = BazParticipant;
+            ParticipantCollection["foo@ema.il"] = BazParticipant;
 
             // Assert
-            Assert.AreEqual("baz@ema.il", participantCollection[0].Email);
+            Assert.AreEqual("baz@ema.il", ParticipantCollection["baz@ema.il"].Email);
         }
 
         [TestMethod]
-        public void ParticipantCollection_SetThrowsException_BecauseIndexIsOutOfRange() {
+        public void ParticipantCollection_Set_ThrowsException_BecauseEmailIsNull() {
             // Arrange
-            ParticipantCollection participantCollection = new ParticipantCollection();
+            ParticipantCollection ParticipantCollection = new ParticipantCollection(new ParticipantTestDao());
+            ParticipantCollection.Add(FooParticipant);
+            ParticipantCollection.Add(BarParticipant);
 
             // Act, Assert
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => participantCollection[-1] = FooParticipant);
+            Assert.ThrowsException<ArgumentNullException>(() => ParticipantCollection[null] = BazParticipant);
+        }
+
+        [TestMethod]
+        public void ParticipantCollection_Set_ThrowsException_BecauseValueIsNull() {
+            // Arrange
+            ParticipantCollection ParticipantCollection = new ParticipantCollection(new ParticipantTestDao());
+            ParticipantCollection.Add(FooParticipant);
+            ParticipantCollection.Add(BarParticipant);
+
+            // Act, Assert
+            Assert.ThrowsException<ArgumentNullException>(() => ParticipantCollection["foo@ema.il"] = null);
+        }
+
+        [TestMethod]
+        public void ParticipantCollection_Set_ThrowsException_BecauseParticipantWithEmailDoesNotExist() {
+            // Arrange
+            ParticipantCollection ParticipantCollection = new ParticipantCollection(new ParticipantTestDao());
+
+            // Act, Assert
+            Assert.ThrowsException<ArgumentException>(() => ParticipantCollection["foo@ema.il"] = BazParticipant);
+        }
+
+        [TestMethod]
+        public void ParticipantCollection_Set_ThrowsException_BecauseParticipantWithEmailAlreadyExists() {
+            // Arrange
+            ParticipantCollection ParticipantCollection = new ParticipantCollection(new ParticipantTestDao());
+            ParticipantCollection.Add(FooParticipant);
+            ParticipantCollection.Add(BarParticipant);
+
+            // Act, Assert
+            Assert.ThrowsException<ArgumentException>(() => ParticipantCollection["foo@ema.il"] = BarParticipant);
         }
     }
 }

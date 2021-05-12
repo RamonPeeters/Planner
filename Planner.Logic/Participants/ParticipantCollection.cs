@@ -1,21 +1,65 @@
-﻿using System.Collections.Generic;
+﻿using Planner.DalInterfaces.Participants;
+using System;
+using System.Collections.Generic;
 
 namespace Planner.Logic.Participants {
     public class ParticipantCollection {
+        private const string ParticipantEmailNotFound = "A participant with e-mail '{0}' was not found.";
+        private const string ParticipantEmailAlreadyExists = "A participant with the e-mail '{0}' already exists.";
+
+        private readonly IParticipantDao ParticipantDao;
         private readonly List<Participant> Participants;
 
-        public ParticipantCollection() {
-            Participants = new List<Participant>();
+        public ParticipantCollection(IParticipantDao participantDao) {
+            ParticipantDao = participantDao;
+
+            List<ParticipantDto> participantDtos = ParticipantDao.GetParticipants();
+            Participants = new List<Participant>(ParticipantMapper.ToParticipants(participantDtos));
         }
 
-        public Participant this[int index] { get { return Participants[index]; } set { Participants[index] = value; } }
+        public Participant this[string email] {
+            get {
+                if (email == null) {
+                    throw new ArgumentNullException(nameof(email));
+                }
+                int index = Participants.FindIndex(item => item.Email == email);
+                if (index == -1) {
+                    throw new ArgumentException(string.Format(ParticipantEmailNotFound, email));
+                }
+                return Participants[index];
+            } set {
+                if (email == null) {
+                    throw new ArgumentNullException(nameof(email));
+                }
+                if (value == null) {
+                    throw new ArgumentNullException(nameof(value));
+                }
+                int index = Participants.FindIndex(item => item.Email == email);
+                if (index == -1) {
+                    throw new ArgumentException(string.Format(ParticipantEmailNotFound, email));
+                }
+                if (Participants.Contains(value)) {
+                    throw new ArgumentException(string.Format(ParticipantEmailAlreadyExists, value.Email));
+                }
+                ParticipantDao.UpdateParticipant(email, ParticipantMapper.ToParticipantDto(value));
+                Participants[index] = value;
+            }
+        }
 
         public void Add(Participant participant) {
+            if (Participants.Contains(participant)) {
+                throw new ArgumentException(string.Format(ParticipantEmailAlreadyExists, participant.Email));
+            }
+            ParticipantDao.CreateParticipant(ParticipantMapper.ToParticipantDto(participant));
             Participants.Add(participant);
         }
 
-        public bool Remove(Participant participant) {
-            return Participants.Remove(participant);
+        public bool RemoveByEmail(string email) {
+            int rows = ParticipantDao.DeleteParticipant(email);
+            if (rows > 0) {
+                return Participants.RemoveAll(p => p.Email == email) > 0;
+            }
+            return false;
         }
 
         public int Count { get { return Participants.Count; } }
