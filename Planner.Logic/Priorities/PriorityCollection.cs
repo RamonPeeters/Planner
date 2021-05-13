@@ -43,7 +43,7 @@ namespace Planner.Logic.Priorities {
                     throw new ArgumentException(string.Format(PriorityNameAlreadyExists, value.Name));
                 }
                 PriorityDao.UpdatePriority(name, PriorityMapper.ToPriorityDto(value));
-                Priorities.Add(value);
+                Priorities[index] = value;
             }
         }
 
