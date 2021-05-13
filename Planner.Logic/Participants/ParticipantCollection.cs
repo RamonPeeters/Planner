@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Planner.Logic.Participants {
     public class ParticipantCollection {
-        private const string ParticipantEmailNotFound = "A participant with e-mail '{0}' was not found.";
+        private const string ParticipantEmailNotFound = "A participant with the e-mail '{0}' was not found.";
         private const string ParticipantEmailAlreadyExists = "A participant with the e-mail '{0}' already exists.";
 
         private readonly IParticipantDao ParticipantDao;
