@@ -11,7 +11,7 @@ namespace Planner.Tests.TestDal.Appointments {
         }
 
         public int CreateAppointment(AppointmentDto appointmentDto) {
-            AppointmentDto actualAppointmentDto = new AppointmentDto(IdAutoIncrement++, appointmentDto.Title, appointmentDto.Description, appointmentDto.StartDate, appointmentDto.EndDate, appointmentDto.Finished);
+            AppointmentDto actualAppointmentDto = new AppointmentDto(IdAutoIncrement++, appointmentDto.Title, appointmentDto.Description, appointmentDto.StartDate, appointmentDto.EndDate, appointmentDto.Finished, appointmentDto.Priority);
             Appointments.Add(actualAppointmentDto);
             return actualAppointmentDto.Id;
         }
