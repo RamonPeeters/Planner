@@ -1,5 +1,7 @@
-﻿using Planner.Logic.Priorities;
+﻿using Planner.Logic.Participants;
+using Planner.Logic.Priorities;
 using System;
+using System.Collections.Generic;
 
 namespace Planner.Logic.Appointments {
     public class Appointment {
@@ -10,8 +12,9 @@ namespace Planner.Logic.Appointments {
         public DateTime EndDate { get; }
         public bool Finished { get; private set; }
         public Priority Priority { get; }
+        public List<Participant> Participants { get; }
 
-        public Appointment(int id, string title, string description, DateTime startDate, DateTime endDate, bool finished, Priority priority) {
+        public Appointment(int id, string title, string description, DateTime startDate, DateTime endDate, bool finished, Priority priority, List<Participant> participants) {
             Id = id;
             Title = title;
             Description = description;
@@ -19,7 +22,10 @@ namespace Planner.Logic.Appointments {
             EndDate = endDate;
             Finished = finished;
             Priority = priority;
+            Participants = participants;
         }
+
+        public Appointment(int id, string title, string description, DateTime startDate, DateTime endDate, bool finished, Priority priority) : this(id, title, description, startDate, endDate, finished, priority, null) { }
 
         public Appointment(int id, string title, string description, DateTime startDate, DateTime endDate, bool finished) : this(id, title, description, startDate, endDate, finished, null) { }
 

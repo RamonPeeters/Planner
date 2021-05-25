@@ -36,7 +36,7 @@ namespace Planner.Logic.Appointments {
 
         public void Add(Appointment appointment) {
             int id = AppointmentDao.CreateAppointment(AppointmentMapper.ToAppointmentDto(appointment));
-            Appointments.Add(new Appointment(id, appointment.Title, appointment.Description, appointment.StartDate, appointment.EndDate, appointment.Finished, appointment.Priority));
+            Appointments.Add(new Appointment(id, appointment.Title, appointment.Description, appointment.StartDate, appointment.EndDate, appointment.Finished, appointment.Priority, appointment.Participants));
         }
 
         public bool RemoveById(int id) {

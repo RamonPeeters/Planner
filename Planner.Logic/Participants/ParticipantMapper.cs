@@ -25,5 +25,14 @@ namespace Planner.Logic.Participants {
             }
             return new ParticipantDto(-1, participant.FirstName, participant.LastName, participant.Email);
         }
+
+        public static IEnumerable<ParticipantDto> ToParticipantDtos(IEnumerable<Participant> participants) {
+            if (participants == null) {
+                yield break;
+            }
+            foreach (Participant participantDto in participants) {
+                yield return ToParticipantDto(participantDto);
+            }
+        }
     }
 }

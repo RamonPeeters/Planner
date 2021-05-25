@@ -1,5 +1,7 @@
-﻿using Planner.DalInterfaces.Priorities;
+﻿using Planner.DalInterfaces.Participants;
+using Planner.DalInterfaces.Priorities;
 using System;
+using System.Collections.Generic;
 
 namespace Planner.DalInterfaces.Appointments {
     public class AppointmentDto {
@@ -10,10 +12,11 @@ namespace Planner.DalInterfaces.Appointments {
         public DateTime EndDate { get; }
         public bool Finished { get; }
         public PriorityDto Priority { get; }
+        public List<ParticipantDto> Participants { get; }
 
         public AppointmentDto() {}
 
-        public AppointmentDto(int id, string title, string description, DateTime startDate, DateTime endDate, bool finished, PriorityDto priority) {
+        public AppointmentDto(int id, string title, string description, DateTime startDate, DateTime endDate, bool finished, PriorityDto priority, List<ParticipantDto> participants) {
             Id = id;
             Title = title;
             Description = description;
@@ -21,6 +24,7 @@ namespace Planner.DalInterfaces.Appointments {
             EndDate = endDate;
             Finished = finished;
             Priority = priority;
+            Participants = participants;
         }
     }
 }

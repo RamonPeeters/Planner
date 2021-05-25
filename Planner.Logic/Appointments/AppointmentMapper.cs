@@ -1,4 +1,6 @@
 ﻿using Planner.DalInterfaces.Appointments;
+using Planner.DalInterfaces.Participants;
+using Planner.Logic.Participants;
 using Planner.Logic.Priorities;
 using System.Collections.Generic;
 
@@ -8,7 +10,7 @@ namespace Planner.Logic.Appointments {
             if (appointmentDto == null) {
                 return null;
             }
-            return new Appointment(appointmentDto.Id, appointmentDto.Title, appointmentDto.Description, appointmentDto.StartDate, appointmentDto.EndDate, appointmentDto.Finished, PriorityMapper.ToPriority(appointmentDto.Priority));
+            return new Appointment(appointmentDto.Id, appointmentDto.Title, appointmentDto.Description, appointmentDto.StartDate, appointmentDto.EndDate, appointmentDto.Finished, PriorityMapper.ToPriority(appointmentDto.Priority), new List<Participant>(ParticipantMapper.ToParticipants(appointmentDto.Participants)));
         }
 
         public static IEnumerable<Appointment> ToAppointments(IEnumerable<AppointmentDto> appointmentDtos) {
@@ -24,7 +26,7 @@ namespace Planner.Logic.Appointments {
             if (appointment == null) {
                 return null;
             }
-            return new AppointmentDto(appointment.Id, appointment.Title, appointment.Description, appointment.StartDate, appointment.EndDate, appointment.Finished, PriorityMapper.ToPriorityDto(appointment.Priority));
+            return new AppointmentDto(appointment.Id, appointment.Title, appointment.Description, appointment.StartDate, appointment.EndDate, appointment.Finished, PriorityMapper.ToPriorityDto(appointment.Priority), new List<ParticipantDto>(ParticipantMapper.ToParticipantDtos(appointment.Participants)));
         }
     }
 }
