@@ -15,8 +15,12 @@ namespace Planner.Logic.Appointments {
 
         public static IEnumerable<Appointment> ToAppointments(IEnumerable<AppointmentDto> appointmentDtos) {
             if (appointmentDtos == null) {
-                yield break;
+                return null;
             }
+            return ToAppointmentsInternal(appointmentDtos);
+        }
+
+        private static IEnumerable<Appointment> ToAppointmentsInternal(IEnumerable<AppointmentDto> appointmentDtos) {
             foreach (AppointmentDto appointmentDto in appointmentDtos) {
                 yield return ToAppointment(appointmentDto);
             }

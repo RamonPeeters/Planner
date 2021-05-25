@@ -12,8 +12,12 @@ namespace Planner.Logic.Priorities {
 
         public static IEnumerable<Priority> ToPriorities(IEnumerable<PriorityDto> priorityDtos) {
             if (priorityDtos == null) {
-                yield break;
+                return null;
             }
+            return ToPrioritiesInternal(priorityDtos);
+        }
+
+        private static IEnumerable<Priority> ToPrioritiesInternal(IEnumerable<PriorityDto> priorityDtos) {
             foreach (PriorityDto priorityDto in priorityDtos) {
                 yield return ToPriority(priorityDto);
             }
