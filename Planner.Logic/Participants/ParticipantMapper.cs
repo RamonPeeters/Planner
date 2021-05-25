@@ -12,12 +12,8 @@ namespace Planner.Logic.Participants {
 
         public static IEnumerable<Participant> ToParticipants(IEnumerable<ParticipantDto> participantDtos) {
             if (participantDtos == null) {
-                return null;
+                yield break;
             }
-            return ToParticipantsInternal(participantDtos);
-        }
-
-        private static IEnumerable<Participant> ToParticipantsInternal(IEnumerable<ParticipantDto> participantDtos) {
             foreach (ParticipantDto participantDto in participantDtos) {
                 yield return ToParticipant(participantDto);
             }
@@ -32,12 +28,8 @@ namespace Planner.Logic.Participants {
 
         public static IEnumerable<ParticipantDto> ToParticipantDtos(IEnumerable<Participant> participants) {
             if (participants == null) {
-                return null;
+                yield break;
             }
-            return ToParticipantDtosInternal(participants);
-        }
-
-        private static IEnumerable<ParticipantDto> ToParticipantDtosInternal(IEnumerable<Participant> participants) {
             foreach (Participant participantDto in participants) {
                 yield return ToParticipantDto(participantDto);
             }
