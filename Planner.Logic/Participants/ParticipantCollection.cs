@@ -1,6 +1,7 @@
 ﻿using Planner.DalInterfaces.Participants;
 using Planner.LogicInterfaces.Participants;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Planner.Logic.Participants {
@@ -10,6 +11,10 @@ namespace Planner.Logic.Participants {
 
         private readonly IParticipantDao ParticipantDao;
         private readonly List<Participant> Participants;
+
+        private ParticipantCollection(IEnumerable<Participant> participants) {
+            Participants = new List<Participant>(participants);
+        }
 
         public ParticipantCollection(IParticipantDao participantDao) {
             ParticipantDao = participantDao;
@@ -63,6 +68,20 @@ namespace Planner.Logic.Participants {
             return false;
         }
 
+        public IEnumerator<Participant> GetEnumerator() {
+            foreach (Participant p in Participants) {
+                yield return p;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
+        }
+
         public int Count { get { return Participants.Count; } }
+
+        public static IParticipantReadOnlyCollection CreateReadOnlyCollection(IEnumerable<Participant> participants) {
+            return new ParticipantCollection(participants);
+        }
     }
 }

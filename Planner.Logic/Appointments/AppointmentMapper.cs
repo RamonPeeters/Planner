@@ -3,7 +3,6 @@ using Planner.DalInterfaces.Participants;
 using Planner.Logic.Participants;
 using Planner.Logic.Priorities;
 using Planner.LogicInterfaces.Appointments;
-using Planner.LogicInterfaces.Participants;
 using System.Collections.Generic;
 
 namespace Planner.Logic.Appointments {
@@ -12,7 +11,7 @@ namespace Planner.Logic.Appointments {
             if (appointmentDto == null) {
                 return null;
             }
-            return new Appointment(appointmentDto.Id, appointmentDto.Title, appointmentDto.Description, appointmentDto.StartDate, appointmentDto.EndDate, appointmentDto.Finished, PriorityMapper.ToPriority(appointmentDto.Priority), new List<Participant>(ParticipantMapper.ToParticipants(appointmentDto.Participants)));
+            return new Appointment(appointmentDto.Id, appointmentDto.Title, appointmentDto.Description, appointmentDto.StartDate, appointmentDto.EndDate, appointmentDto.Finished, PriorityMapper.ToPriority(appointmentDto.Priority), ParticipantCollection.CreateReadOnlyCollection(ParticipantMapper.ToParticipants(appointmentDto.Participants)));
         }
 
         public static IEnumerable<Appointment> ToAppointments(IEnumerable<AppointmentDto> appointmentDtos) {
