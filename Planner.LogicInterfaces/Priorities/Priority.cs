@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Planner.Logic.Priorities {
+namespace Planner.LogicInterfaces.Priorities {
     public class Priority : IEquatable<Priority> {
         public string Name { get; }
         public int Colour { get; }

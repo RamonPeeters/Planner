@@ -1,9 +1,10 @@
 ﻿using Planner.DalInterfaces.Appointments;
+using Planner.LogicInterfaces.Appointments;
 using System;
 using System.Collections.Generic;
 
 namespace Planner.Logic.Appointments {
-    public class AppointmentCollection {
+    public class AppointmentCollection : IAppointmentCollection, IAppointmentReadOnlyCollection {
         private const string AppointmentIdNotFound = "An appointment with id {0} was not found.";
 
         private readonly IAppointmentDao AppointmentDao;

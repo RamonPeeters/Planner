@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Planner.Logic.Appointments;
+using Planner.LogicInterfaces.Appointments;
 using System;
 
 namespace Planner.Tests.UnitTests.Appointments {

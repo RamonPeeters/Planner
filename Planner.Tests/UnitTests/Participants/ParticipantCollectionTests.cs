@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Planner.Logic.Participants;
+using Planner.LogicInterfaces.Participants;
 using Planner.Tests.TestDal.Participants;
 using System;
 

@@ -1,4 +1,5 @@
 ﻿using Planner.DalInterfaces.Priorities;
+using Planner.LogicInterfaces.Priorities;
 using System.Collections.Generic;
 
 namespace Planner.Logic.Priorities {

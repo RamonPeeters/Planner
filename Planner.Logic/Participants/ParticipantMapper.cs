@@ -1,4 +1,5 @@
 ﻿using Planner.DalInterfaces.Participants;
+using Planner.LogicInterfaces.Participants;
 using System.Collections.Generic;
 
 namespace Planner.Logic.Participants {

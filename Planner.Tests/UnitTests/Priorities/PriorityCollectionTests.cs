@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Planner.Logic.Priorities;
+using Planner.LogicInterfaces.Priorities;
 using Planner.Tests.TestDal.Priorities;
 using System;
 

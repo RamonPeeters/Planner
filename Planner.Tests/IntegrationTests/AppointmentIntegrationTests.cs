@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MySql.Data.MySqlClient;
 using Planner.Logic.Appointments;
 using Planner.LogicFactory;
+using Planner.LogicInterfaces.Appointments;
 using System;
 using System.Data;
 

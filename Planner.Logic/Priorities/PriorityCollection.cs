@@ -1,9 +1,10 @@
 ﻿using Planner.DalInterfaces.Priorities;
+using Planner.LogicInterfaces.Priorities;
 using System;
 using System.Collections.Generic;
 
 namespace Planner.Logic.Priorities {
-    public class PriorityCollection {
+    public class PriorityCollection : IPriorityCollection, IPriorityReadOnlyCollection {
         private const string PriorityNameNotFound = "A priority with the name '{0}' was not found.";
         private const string PriorityNameAlreadyExists = "A priority with the name '{0}' already exists.";
 

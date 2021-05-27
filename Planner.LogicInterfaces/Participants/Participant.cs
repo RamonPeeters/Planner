@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Planner.Logic.Participants {
+namespace Planner.LogicInterfaces.Participants {
     public class Participant : IEquatable<Participant> {
         public string FirstName { get; }
         public string LastName { get; }

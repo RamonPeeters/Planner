@@ -1,9 +1,10 @@
 ﻿using Planner.DalInterfaces.Participants;
+using Planner.LogicInterfaces.Participants;
 using System;
 using System.Collections.Generic;
 
 namespace Planner.Logic.Participants {
-    public class ParticipantCollection {
+    public class ParticipantCollection : IParticipantCollection, IParticipantReadOnlyCollection {
         private const string ParticipantEmailNotFound = "A participant with the e-mail '{0}' was not found.";
         private const string ParticipantEmailAlreadyExists = "A participant with the e-mail '{0}' already exists.";
 

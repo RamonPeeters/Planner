@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MySql.Data.MySqlClient;
 using Planner.Logic.Priorities;
 using Planner.LogicFactory;
+using Planner.LogicInterfaces.Priorities;
 using System.Data;
 
 namespace Planner.Tests.IntegrationTests {

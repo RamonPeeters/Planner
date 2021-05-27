@@ -1,9 +1,9 @@
-﻿using Planner.Logic.Participants;
-using Planner.Logic.Priorities;
+﻿using Planner.LogicInterfaces.Participants;
+using Planner.LogicInterfaces.Priorities;
 using System;
 using System.Collections.Generic;
 
-namespace Planner.Logic.Appointments {
+namespace Planner.LogicInterfaces.Appointments {
     public class Appointment {
         public int Id { get; }
         public string Title { get; }
@@ -12,9 +12,9 @@ namespace Planner.Logic.Appointments {
         public DateTime EndDate { get; }
         public bool Finished { get; private set; }
         public Priority Priority { get; }
-        public List<Participant> Participants { get; }
+        public IParticipantReadOnlyCollection Participants { get; }
 
-        public Appointment(int id, string title, string description, DateTime startDate, DateTime endDate, bool finished, Priority priority, List<Participant> participants) {
+        public Appointment(int id, string title, string description, DateTime startDate, DateTime endDate, bool finished, Priority priority, IParticipantReadOnlyCollection participants) {
             Id = id;
             Title = title;
             Description = description;

@@ -2,6 +2,8 @@
 using Planner.DalInterfaces.Participants;
 using Planner.Logic.Participants;
 using Planner.Logic.Priorities;
+using Planner.LogicInterfaces.Appointments;
+using Planner.LogicInterfaces.Participants;
 using System.Collections.Generic;
 
 namespace Planner.Logic.Appointments {
