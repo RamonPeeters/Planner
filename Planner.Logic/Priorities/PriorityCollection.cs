@@ -1,6 +1,7 @@
 ﻿using Planner.DalInterfaces.Priorities;
 using Planner.LogicInterfaces.Priorities;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Planner.Logic.Priorities {
@@ -65,5 +66,15 @@ namespace Planner.Logic.Priorities {
         }
 
         public int Count { get { return Priorities.Count; } }
+
+        public IEnumerator<Priority> GetEnumerator() {
+            foreach (Priority priority in Priorities) {
+                yield return priority;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
+        }
     }
 }
