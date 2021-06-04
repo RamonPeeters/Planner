@@ -1,0 +1,12 @@
+﻿@model IEnumerable<AppointmentViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Index</h1>
+
+    @foreach (AppointmentViewModel appointment in Model) {
+        <p>[@appointment.Id] @appointment.Title (@appointment.Description) Van: @appointment.StartDate, Tot: @appointment.EndDate</p>
+    }
+</div>

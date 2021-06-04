@@ -1,6 +1,7 @@
 ﻿using Planner.DalInterfaces.Appointments;
 using Planner.LogicInterfaces.Appointments;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Planner.Logic.Appointments {
@@ -47,5 +48,15 @@ namespace Planner.Logic.Appointments {
         }
 
         public int Count { get { return Appointments.Count; } }
+
+        public IEnumerator<Appointment> GetEnumerator() {
+            foreach (Appointment appointment in Appointments) {
+                yield return appointment;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
+        }
     }
 }
