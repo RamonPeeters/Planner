@@ -1,0 +1,12 @@
+﻿@model IEnumerable<ParticipantViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Index</h1>
+
+    @foreach (ParticipantViewModel participant in Model) {
+        <p>[@participant.FirstName @participant.LastName] (@participant.Email)</p>
+    }
+</div>
