@@ -6,7 +6,13 @@
 <div class="text-center">
     <h1 class="display-4">Index</h1>
 
+    <a asp-action="New">New Priority</a>
+
     @foreach (PriorityViewModel priority in Model) {
-        <p>[@priority.Name] (@priority.Colour)</p>
+        <p>
+            <a asp-action="Priority" asp-route-name="@priority.Name">@priority.Name</a> (@priority.Colour)
+            <a asp-action="Edit" asp-route-name="@priority.Name">Edit</a> |
+            <a asp-action="Delete" asp-route-name="@priority.Name">Delete</a>
+        </p>
     }
 </div>

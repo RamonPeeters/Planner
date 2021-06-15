@@ -1,0 +1,25 @@
+﻿@model PriorityViewModel
+@{
+    ViewData["Title"] = "New Priority";
+}
+
+<div class="text-center">
+    <h1>New Priority</h1>
+
+    @using (Html.BeginForm(FormMethod.Post)) {
+        @Html.NameFor(m => m.Name);
+        @Html.TextBoxFor(m => m.Name);
+        @Html.ValidationMessageFor(m => m.Name);
+
+        <br />
+
+        @Html.NameFor(m => m.Colour);
+        @Html.EditorFor(m => m.Colour);
+        @Html.ValidationMessageFor(m => m.Colour);
+
+        <br />
+        <br />
+
+        <input type="submit" value="Add Priority" />
+    }
+</div>

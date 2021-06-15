@@ -20,5 +20,54 @@ namespace Planner.Presentation.Controllers {
             IEnumerable<PriorityViewModel> priorityViewModels = PriorityViewModelMapper.ToPriorityViewModels(Priorities);
             return View(priorityViewModels);
         }
+
+        public IActionResult Priority(string name = null) {
+            if (name == null) {
+                return RedirectToAction(nameof(Index));
+            }
+            Priority priority = Priorities[name];
+            PriorityViewModel priorityViewModel = PriorityViewModelMapper.ToPriorityViewModel(priority);
+            return View(priorityViewModel);
+        }
+
+        public IActionResult New() {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult New(PriorityViewModel priorityViewModel) {
+            if (!ModelState.IsValid) {
+                return View(priorityViewModel);
+            }
+            Priorities.Add(PriorityViewModelMapper.ToPriority(priorityViewModel));
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Edit(string name = null) {
+            if (name == null) {
+                return RedirectToAction(nameof(Index));
+            }
+            Priority priority = Priorities[name];
+            PriorityViewModel priorityViewModel = PriorityViewModelMapper.ToPriorityViewModel(priority);
+            return View(priorityViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(string name, PriorityViewModel priorityViewModel) {
+            if (!ModelState.IsValid) {
+                return View(priorityViewModel);
+            }
+            System.Console.WriteLine("PRI-NEW NAME: " + priorityViewModel.Name);
+            System.Console.WriteLine("PRI NAME: " + name);
+            Priorities[name] = PriorityViewModelMapper.ToPriority(priorityViewModel);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Delete(string name = null) {
+            if (name != null) {
+                Priorities.RemoveByName(name);
+            }
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

@@ -13,5 +13,9 @@ namespace Planner.Presentation.Mappers {
                 yield return ToPriorityViewModel(priority);
             }
         }
+
+        public static Priority ToPriority(PriorityViewModel priorityViewModel) {
+            return new Priority(priorityViewModel.Name, priorityViewModel.Colour);
+        }
     }
 }
