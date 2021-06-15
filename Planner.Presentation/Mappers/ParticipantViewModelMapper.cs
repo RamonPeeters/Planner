@@ -13,5 +13,9 @@ namespace Planner.Presentation.Mappers {
                 yield return ToParticipantViewModel(participant);
             }
         }
+
+        public static Participant ToParticipant(ParticipantViewModel participantViewModel) {
+            return new Participant(participantViewModel.FirstName, participantViewModel.LastName, participantViewModel.Email);
+        }
     }
 }

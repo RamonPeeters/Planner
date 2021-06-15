@@ -1,0 +1,31 @@
+﻿@model ParticipantViewModel
+@{
+    ViewData["Title"] = "New Participant";
+}
+
+<div class="text-center">
+    <h1>New Participant</h1>
+
+    @using (Html.BeginForm(FormMethod.Post)) {
+        @Html.NameFor(m => m.FirstName);
+        @Html.TextBoxFor(m => m.FirstName);
+        @Html.ValidationMessageFor(m => m.FirstName);
+
+        <br />
+
+        @Html.NameFor(m => m.LastName);
+        @Html.TextBoxFor(m => m.LastName);
+        @Html.ValidationMessageFor(m => m.LastName);
+
+        <br />
+
+        @Html.NameFor(m => m.Email);
+        @Html.TextBoxFor(m => m.Email);
+        @Html.ValidationMessageFor(m => m.Email);
+
+        <br />
+        <br />
+
+        <input type="submit" value="Add Participant" />
+    }
+</div>

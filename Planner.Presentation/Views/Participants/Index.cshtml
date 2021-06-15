@@ -6,7 +6,13 @@
 <div class="text-center">
     <h1 class="display-4">Index</h1>
 
+    <a asp-action="New">New Participant</a>
+
     @foreach (ParticipantViewModel participant in Model) {
-        <p>[@participant.FirstName @participant.LastName] (@participant.Email)</p>
+        <p>
+            <a asp-action="Participant" asp-route-email="@participant.Email">@participant.FirstName @participant.LastName</a> (@participant.Email)
+            <a asp-action="Edit" asp-route-email="@participant.Email">Edit</a> |
+            <a asp-action="Delete" asp-route-email="@participant.Email">Delete</a>
+        </p>
     }
 </div>

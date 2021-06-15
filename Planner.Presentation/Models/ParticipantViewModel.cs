@@ -1,8 +1,21 @@
-﻿namespace Planner.Presentation.Models {
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Planner.Presentation.Models {
     public class ParticipantViewModel {
-        public string FirstName { get; }
-        public string LastName { get; }
-        public string Email { get; }
+        [Required]
+        [StringLength(50)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string LastName { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [StringLength(50)]
+        public string Email { get; set; }
+
+        public ParticipantViewModel() : this("", "", "") {}
 
         public ParticipantViewModel(string firstName, string lastName, string email) {
             FirstName = firstName;
