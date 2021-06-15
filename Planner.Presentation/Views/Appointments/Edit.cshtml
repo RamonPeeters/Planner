@@ -1,0 +1,41 @@
+﻿@model AppointmentViewModel
+@{
+    ViewData["Title"] = "Edit Appointment";
+}
+
+<div class="text-center">
+    <h1>Edit Appointment</h1>
+
+    @using (Html.BeginForm(FormMethod.Post)) {
+        @Html.HiddenFor(m => m.Id);
+        @Html.HiddenFor(m => m.Finished);
+
+        @Html.NameFor(m => m.Title);
+        @Html.TextBoxFor(m => m.Title);
+        @Html.ValidationMessageFor(m => m.Title);
+
+        <br />
+
+        @Html.NameFor(m => m.Description);
+        @Html.TextAreaFor(m => m.Description);
+        @Html.ValidationMessageFor(m => m.Description);
+
+        <br />
+
+        @Html.NameFor(m => m.StartDate);
+        @Html.EditorFor(m => m.StartDate);
+        @Html.ValidationMessageFor(m => m.StartDate);
+
+        <br />
+
+        @Html.NameFor(m => m.EndDate);
+        @Html.EditorFor(m => m.EndDate);
+        @Html.ValidationMessageFor(m => m.EndDate);
+
+        <br />
+        <br />
+
+        <input type="submit" value="Edit Appointment" />
+    }
+</div>
+

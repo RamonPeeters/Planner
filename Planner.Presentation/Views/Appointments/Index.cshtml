@@ -6,7 +6,14 @@
 <div class="text-center">
     <h1 class="display-4">Index</h1>
 
+    <a asp-action="New">New Appointment</a>
+
     @foreach (AppointmentViewModel appointment in Model) {
-        <p>[@appointment.Id] @appointment.Title (@appointment.Description) Van: @appointment.StartDate, Tot: @appointment.EndDate</p>
+        <p>
+            <a asp-action="Appointment" asp-route-id="@appointment.Id">@appointment.Title</a> (@appointment.Description) Van: @appointment.StartDate, Tot: @appointment.EndDate -
+            <a asp-action="Edit" asp-route-id="@appointment.Id">Edit</a> |
+            <a asp-action="Delete" asp-route-id="@appointment.Id">Delete</a>
+        </p>
+
     }
 </div>

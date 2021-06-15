@@ -13,5 +13,9 @@ namespace Planner.Presentation.Mappers {
                 yield return ToAppointmentViewModel(appointment);
             }
         }
+
+        public static Appointment ToAppointment(AppointmentViewModel appointmentViewModel) {
+            return new Appointment(appointmentViewModel.Id, appointmentViewModel.Title, appointmentViewModel.Description, appointmentViewModel.StartDate, appointmentViewModel.EndDate, appointmentViewModel.Finished);
+        }
     }
 }
