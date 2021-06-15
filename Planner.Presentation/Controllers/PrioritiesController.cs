@@ -57,8 +57,6 @@ namespace Planner.Presentation.Controllers {
             if (!ModelState.IsValid) {
                 return View(priorityViewModel);
             }
-            System.Console.WriteLine("PRI-NEW NAME: " + priorityViewModel.Name);
-            System.Console.WriteLine("PRI NAME: " + name);
             Priorities[name] = PriorityViewModelMapper.ToPriority(priorityViewModel);
             return RedirectToAction(nameof(Index));
         }
