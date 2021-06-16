@@ -8,7 +8,7 @@ namespace Planner.Logic.Priorities {
             if (priorityDto == null) {
                 return null;
             }
-            return new Priority(priorityDto.Name, priorityDto.Colour);
+            return new Priority(priorityDto.Id, priorityDto.Name, priorityDto.Colour);
         }
 
         public static IEnumerable<Priority> ToPriorities(IEnumerable<PriorityDto> priorityDtos) {
@@ -24,7 +24,7 @@ namespace Planner.Logic.Priorities {
             if (priority == null) {
                 return null;
             }
-            return new PriorityDto(-1, priority.Name, priority.Colour);
+            return new PriorityDto(priority.Id, priority.Name, priority.Colour);
         }
     }
 }

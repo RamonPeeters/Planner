@@ -8,7 +8,7 @@ namespace Planner.Logic.Participants {
             if (participantDto == null) {
                 return null;
             }
-            return new Participant(participantDto.FirstName, participantDto.LastName, participantDto.Email);
+            return new Participant(participantDto.Id, participantDto.FirstName, participantDto.LastName, participantDto.Email);
         }
 
         public static IEnumerable<Participant> ToParticipants(IEnumerable<ParticipantDto> participantDtos) {
@@ -24,7 +24,7 @@ namespace Planner.Logic.Participants {
             if (participant == null) {
                 return null;
             }
-            return new ParticipantDto(-1, participant.FirstName, participant.LastName, participant.Email);
+            return new ParticipantDto(participant.Id, participant.FirstName, participant.LastName, participant.Email);
         }
 
         public static IEnumerable<ParticipantDto> ToParticipantDtos(IParticipantReadOnlyCollection participants) {

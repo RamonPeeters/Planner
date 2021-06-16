@@ -2,6 +2,8 @@
 
 namespace Planner.Presentation.Models {
     public class ParticipantViewModel {
+        public int Id { get; set; }
+
         [Required]
         [StringLength(50)]
         public string FirstName { get; set; }
@@ -15,9 +17,10 @@ namespace Planner.Presentation.Models {
         [StringLength(50)]
         public string Email { get; set; }
 
-        public ParticipantViewModel() : this("", "", "") {}
+        public ParticipantViewModel() : this(-1, "", "", "") {}
 
-        public ParticipantViewModel(string firstName, string lastName, string email) {
+        public ParticipantViewModel(int id, string firstName, string lastName, string email) {
+            Id = id;
             FirstName = firstName;
             LastName = lastName;
             Email = email;

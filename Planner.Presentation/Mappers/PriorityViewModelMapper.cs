@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Planner.Presentation.Mappers {
     static class PriorityViewModelMapper {
         public static PriorityViewModel ToPriorityViewModel(Priority priority) {
-            return new PriorityViewModel(priority.Name, priority.Colour);
+            return new PriorityViewModel(priority.Id, priority.Name, priority.Colour);
         }
 
         public static IEnumerable<PriorityViewModel> ToPriorityViewModels(IPriorityCollection priorities) {
@@ -15,7 +15,7 @@ namespace Planner.Presentation.Mappers {
         }
 
         public static Priority ToPriority(PriorityViewModel priorityViewModel) {
-            return new Priority(priorityViewModel.Name, priorityViewModel.Colour);
+            return new Priority(priorityViewModel.Id, priorityViewModel.Name, priorityViewModel.Colour);
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Planner.Presentation.Mappers {
     class ParticipantViewModelMapper {
         public static ParticipantViewModel ToParticipantViewModel(Participant participant) {
-            return new ParticipantViewModel(participant.FirstName, participant.LastName, participant.Email);
+            return new ParticipantViewModel(participant.Id, participant.FirstName, participant.LastName, participant.Email);
         }
 
         public static IEnumerable<ParticipantViewModel> ToParticipantViewModels(IParticipantCollection participants) {
@@ -15,7 +15,7 @@ namespace Planner.Presentation.Mappers {
         }
 
         public static Participant ToParticipant(ParticipantViewModel participantViewModel) {
-            return new Participant(participantViewModel.FirstName, participantViewModel.LastName, participantViewModel.Email);
+            return new Participant(participantViewModel.Id, participantViewModel.FirstName, participantViewModel.LastName, participantViewModel.Email);
         }
     }
 }
