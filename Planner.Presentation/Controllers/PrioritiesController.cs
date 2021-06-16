@@ -53,7 +53,7 @@ namespace Planner.Presentation.Controllers {
         }
 
         [HttpPost]
-        public IActionResult Edit(string name, PriorityViewModel priorityViewModel) {
+        public IActionResult Edit([FromQuery] string name, PriorityViewModel priorityViewModel) {
             if (!ModelState.IsValid) {
                 return View(priorityViewModel);
             }

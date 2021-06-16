@@ -44,7 +44,8 @@ namespace Planner.Logic.Participants {
                 if (index == -1) {
                     throw new ArgumentException(string.Format(ParticipantEmailNotFound, email));
                 }
-                if (index != Participants.IndexOf(value)) {
+                int existingIndex = Participants.IndexOf(value);
+                if (existingIndex != index && existingIndex != -1) {
                     throw new ArgumentException(string.Format(ParticipantEmailAlreadyExists, value.Email));
                 }
                 ParticipantDao.UpdateParticipant(email, ParticipantMapper.ToParticipantDto(value));

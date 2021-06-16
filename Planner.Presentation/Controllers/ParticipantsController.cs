@@ -53,7 +53,7 @@ namespace Planner.Presentation.Controllers {
         }
 
         [HttpPost]
-        public IActionResult Edit(string email, ParticipantViewModel participantViewModel) {
+        public IActionResult Edit([FromQuery] string email, ParticipantViewModel participantViewModel) {
             if (!ModelState.IsValid) {
                 return View(participantViewModel);
             }
