@@ -41,7 +41,7 @@ namespace Planner.Logic.Priorities {
                 if (index == -1) {
                     throw new ArgumentException(string.Format(PriorityNameNotFound, name));
                 }
-                if (Priorities.Contains(value)) {
+                if (index != Priorities.IndexOf(value)) {
                     throw new ArgumentException(string.Format(PriorityNameAlreadyExists, value.Name));
                 }
                 PriorityDao.UpdatePriority(name, PriorityMapper.ToPriorityDto(value));
