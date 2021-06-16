@@ -7,6 +7,8 @@
     <h1>Edit Priority</h1>
 
     @using (Html.BeginForm(FormMethod.Post)) {
+        @Html.HiddenFor(m => m.Id);
+
         @Html.NameFor(m => m.Name);
         @Html.TextBoxFor(m => m.Name);
         @Html.ValidationMessageFor(m => m.Name);
