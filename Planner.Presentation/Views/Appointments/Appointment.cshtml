@@ -1,12 +1,8 @@
 ﻿@model AppointmentViewModel
 @{
     ViewData["Title"] = "Appointment";
+    Layout = null;
 }
 
-<div class="text-center">
-    <h1>Appointment</h1>
-
-    <p>@Model.Title</p>
-    <p>@Model.Description</p>
-    <p>@Model.StartDate - @Model.EndDate</p>
-</div>
+<link rel="stylesheet" href="~/css/site.css" />
+@Html.DisplayForModel()

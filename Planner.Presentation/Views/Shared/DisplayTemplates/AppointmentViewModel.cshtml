@@ -1,0 +1,12 @@
+﻿@model AppointmentViewModel
+<table>
+    <tr>
+        <th>@Html.DisplayFor(m => m.Title)</th>
+    </tr>
+    <tr>
+        <td>@Html.DisplayFor(m => m.Description)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayFor(m => m.StartDate) - @Html.DisplayFor(m => m.EndDate)</td>
+    </tr>
+</table>

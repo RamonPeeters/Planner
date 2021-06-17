@@ -10,10 +10,12 @@ namespace Planner.Presentation.Models {
 
         [Display(Name = "Start Date")]
         [DatePassed(ErrorMessage = "Select a date that hasn't passed yet.")]
+        [DisplayFormat(DataFormatString = "{0:ddd d MMMM yyy (H:mm:ss)}")]
         public DateTime StartDate { get; set; }
 
         [Display(Name = "End Date")]
         [DateAfter(nameof(StartDate), ErrorMessage = "The end date must be later than the start date.")]
+        [DisplayFormat(DataFormatString = "{0:ddd d MMMM yyy (H:mm:ss)}")]
         public DateTime EndDate { get; set; }
         public bool Finished { get; private set; }
 
