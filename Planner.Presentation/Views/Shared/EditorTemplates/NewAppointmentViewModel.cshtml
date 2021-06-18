@@ -1,18 +1,10 @@
 ﻿@using Planner.Presentation.Models.Appointments;
-@model EditAppointmentViewModel
-@{
-    ViewData["Title"] = "Edit Appointment";
-}
+@model NewAppointmentViewModel
 
 <div class="text-center">
-    <h1>Edit Appointment</h1>
-
     @using (Html.BeginForm(FormMethod.Post)) {
-        @Html.HiddenFor(m => m.Id);
-        @Html.HiddenFor(m => m.Finished);
-
         @Html.NameFor(m => m.Title);
-        @Html.TextBoxFor(m => m.Title);
+        @Html.TextBoxFor(m => m.Title, "", new { @class = "foo bar" });
         @Html.ValidationMessageFor(m => m.Title);
 
         <br />
@@ -36,7 +28,6 @@
         <br />
         <br />
 
-        <input type="submit" value="Edit Appointment" />
+        <input type="submit" value="Add Appointment" />
     }
 </div>
-

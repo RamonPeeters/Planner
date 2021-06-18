@@ -1,5 +1,5 @@
 ﻿using Planner.LogicInterfaces.Appointments;
-using Planner.Presentation.Models;
+using Planner.Presentation.Models.Appointments;
 using System.Collections.Generic;
 
 namespace Planner.Presentation.Mappers {
@@ -16,6 +16,14 @@ namespace Planner.Presentation.Mappers {
 
         public static Appointment ToAppointment(AppointmentViewModel appointmentViewModel) {
             return new Appointment(appointmentViewModel.Id, appointmentViewModel.Title, appointmentViewModel.Description, appointmentViewModel.StartDate, appointmentViewModel.EndDate, appointmentViewModel.Finished);
+        }
+
+        public static Appointment ToAppointment(NewAppointmentViewModel newAppointmentViewModel) {
+            return new Appointment(-1, newAppointmentViewModel.Title, newAppointmentViewModel.Description, newAppointmentViewModel.StartDate, newAppointmentViewModel.EndDate, false);
+        }
+
+        public static Appointment ToAppointment(EditAppointmentViewModel editAppointmentViewModel) {
+            return new Appointment(editAppointmentViewModel.Id, editAppointmentViewModel.Title, editAppointmentViewModel.Description, editAppointmentViewModel.StartDate, editAppointmentViewModel.EndDate, editAppointmentViewModel.Finished);
         }
     }
 }

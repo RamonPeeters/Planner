@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Planner.LogicFactory;
 using Planner.LogicInterfaces.Appointments;
 using Planner.Presentation.Mappers;
-using Planner.Presentation.Models;
+using Planner.Presentation.Models.Appointments;
 using System.Collections.Generic;
 
 namespace Planner.Presentation.Controllers {
@@ -35,7 +35,7 @@ namespace Planner.Presentation.Controllers {
         }
 
         [HttpPost]
-        public IActionResult New(AppointmentViewModel appointmentViewModel) {
+        public IActionResult New(NewAppointmentViewModel appointmentViewModel) {
             if (!ModelState.IsValid) {
                 return View(appointmentViewModel);
             }
@@ -53,7 +53,7 @@ namespace Planner.Presentation.Controllers {
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, AppointmentViewModel appointmentViewModel) {
+        public IActionResult Edit(int id, EditAppointmentViewModel appointmentViewModel) {
             if (!ModelState.IsValid) {
                 return View(appointmentViewModel);
             }
