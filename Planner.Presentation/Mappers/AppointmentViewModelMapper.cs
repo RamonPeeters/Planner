@@ -8,6 +8,10 @@ namespace Planner.Presentation.Mappers {
             return new AppointmentViewModel(appointment.Id, appointment.Title, appointment.Description, appointment.StartDate, appointment.EndDate, appointment.Finished);
         }
 
+        public static EditAppointmentViewModel ToEditAppointmentViewModel(Appointment appointment) {
+            return new EditAppointmentViewModel(appointment.Id, appointment.Title, appointment.Description, appointment.StartDate, appointment.EndDate, appointment.Finished);
+        }
+
         public static IEnumerable<AppointmentViewModel> ToAppointmentViewModels(IAppointmentCollection appointments) {
             foreach (Appointment appointment in appointments) {
                 yield return ToAppointmentViewModel(appointment);

@@ -48,8 +48,8 @@ namespace Planner.Presentation.Controllers {
                 return RedirectToAction(nameof(Index));
             }
             Appointment appointment = Appointments[id.Value];
-            AppointmentViewModel appointmentViewModel = AppointmentViewModelMapper.ToAppointmentViewModel(appointment);
-            return View(appointmentViewModel);
+            EditAppointmentViewModel editAppointmentViewModel = AppointmentViewModelMapper.ToEditAppointmentViewModel(appointment);
+            return View(editAppointmentViewModel);
         }
 
         [HttpPost]

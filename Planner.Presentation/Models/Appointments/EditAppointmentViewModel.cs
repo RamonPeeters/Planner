@@ -11,5 +11,16 @@ namespace Planner.Presentation.Models.Appointments {
         [DateAfter(nameof(StartDate), ErrorMessage = "The end date must be later than the start date.")]
         public DateTime EndDate { get; set; }
         public bool Finished { get; private set; }
+
+        public EditAppointmentViewModel() : this(-1, "", null, default, default, false) { }
+
+        public EditAppointmentViewModel(int id, string title, string description, DateTime startDate, DateTime endDate, bool finished) {
+            Id = id;
+            Title = title;
+            Description = description;
+            StartDate = startDate;
+            EndDate = endDate;
+            Finished = finished;
+        }
     }
 }
